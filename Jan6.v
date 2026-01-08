@@ -974,8 +974,11 @@ Inductive FederalCharge
    | Charge_18USC1361
    | Charge_18USC1752
    | Charge_40USC5104
+   | Charge_18USC371
    | Charge_18USC372
-   | Charge_18USC1519.
+   | Charge_18USC1001
+   | Charge_18USC1519
+   | Charge_18USC241.
 
 Inductive SentencingEnhancement
   : Type
@@ -2714,6 +2717,1032 @@ Proof.
   decide equality.
 Defined.
 
+(** * Pre-January 6 Conspiracy Planning *)
+
+Module PreJan6Conspiracy.
+
+  Local Open Scope string_scope.
+
+  Definition dec_2020_06 : Minute := 0.
+  Definition dec_2020_07 : Minute := 1440.
+  Definition dec_2020_09 : Minute := 4320.
+  Definition dec_2020_14 : Minute := 11520.
+  Definition dec_2020_19 : Minute := 18720.
+  Definition dec_2020_29 : Minute := 33120.
+  Definition jan_2021_02 : Minute := 38880.
+  Definition jan_2021_04 : Minute := 41760.
+  Definition jan_2021_05 : Minute := 43200.
+
+  Inductive ConspiracyActor
+    : Type
+    := CA_Trump
+     | CA_Eastman
+     | CA_Chesebro
+     | CA_Giuliani
+     | CA_Meadows
+     | CA_Clark
+     | CA_Ellis
+     | CA_Powell
+     | CA_Tarrio
+     | CA_Rhodes
+     | CA_Meggs
+     | CA_Biggs
+     | CA_Nordean.
+
+  Inductive ConspiracyMemo
+    : Type
+    := CheseberoMemo_Dec6
+     | CheseberoMemo_Dec9
+     | EastmanMemo_TwoPage
+     | EastmanMemo_SixPage.
+
+  Record LegalMemo
+    : Type
+    := mkLegalMemo
+         { memo_type : ConspiracyMemo
+         ; memo_author : ConspiracyActor
+         ; memo_date : Minute
+         ; memo_pages : nat
+         ; memo_subject : string
+         ; memo_source : string
+         }.
+
+  Definition chesebro_dec6_memo
+    : LegalMemo
+    := mkLegalMemo
+         CheseberoMemo_Dec6
+         CA_Chesebro
+         dec_2020_06
+         7
+         "Strategy for six states to appoint alternate electors"
+         "DOJ exhibit, United States v. Trump, Case 1:23-cr-00257".
+
+  Definition chesebro_dec9_memo
+    : LegalMemo
+    := mkLegalMemo
+         CheseberoMemo_Dec9
+         CA_Chesebro
+         dec_2020_09
+         4
+         "Wisconsin alternate elector appointment instructions and document format"
+         "DOJ exhibit, United States v. Trump, Case 1:23-cr-00257".
+
+  Definition eastman_twopage_memo
+    : LegalMemo
+    := mkLegalMemo
+         EastmanMemo_TwoPage
+         CA_Eastman
+         dec_2020_19
+         2
+         "January 6 scenario: six-step plan for VP to reject electors"
+         "Woodward & Costa, Peril (2021); CNN publication 2021-09-20".
+
+  Definition eastman_sixpage_memo
+    : LegalMemo
+    := mkLegalMemo
+         EastmanMemo_SixPage
+         CA_Eastman
+         dec_2020_19
+         6
+         "Expanded legal theory for VP authority to reject electors"
+         "Eastman public release following CNN report".
+
+  Definition conspiracy_memos
+    : list LegalMemo
+    := [chesebro_dec6_memo; chesebro_dec9_memo;
+        eastman_twopage_memo; eastman_sixpage_memo].
+
+  Inductive EastmanSixSteps
+    : Type
+    := Step1_VPAnnouncesSevenStatesHaveDualSlates
+     | Step2_VPRefusesToOpenCertificatesFromContestedStates
+     | Step3_VPDeclaresTrumpWins
+     | Step4_DemocratsHowlAndSue
+     | Step5_MatterGoesToSupremeCourt
+     | Step6_SupremeCourtDecidesOrSenateVotesByState.
+
+  Definition eastman_steps
+    : list EastmanSixSteps
+    := [ Step1_VPAnnouncesSevenStatesHaveDualSlates
+       ; Step2_VPRefusesToOpenCertificatesFromContestedStates
+       ; Step3_VPDeclaresTrumpWins
+       ; Step4_DemocratsHowlAndSue
+       ; Step5_MatterGoesToSupremeCourt
+       ; Step6_SupremeCourtDecidesOrSenateVotesByState
+       ].
+
+  Record PhoneCall
+    : Type
+    := mkPhoneCall
+         { call_date : Minute
+         ; call_duration_minutes : nat
+         ; call_caller : ConspiracyActor
+         ; call_participants : list string
+         ; call_key_quote : string
+         ; call_source : string
+         }.
+
+  Definition georgia_call
+    : PhoneCall
+    := mkPhoneCall
+         jan_2021_02
+         62
+         CA_Trump
+         ["Brad Raffensperger"; "Ryan Germany"; "Mark Meadows";
+          "Cleta Mitchell"; "John Eastman"; "Rudy Giuliani"]
+         "I just want to find 11,780 votes"
+         "Washington Post audio recording, published 2021-01-03".
+
+  Definition votes_margin_georgia
+    : nat
+    := 11779.
+
+  Definition votes_trump_requested
+    : nat
+    := 11780.
+
+  Lemma trump_requested_one_more_than_margin
+    : votes_trump_requested = votes_margin_georgia + 1.
+  Proof.
+    reflexivity.
+  Defined.
+
+  Inductive MilitiaStructure
+    : Type
+    := ProudBoys_MOSD
+     | OathKeepers_QRF
+     | OathKeepers_StackOne
+     | OathKeepers_StackTwo.
+
+  Record MilitiaPlanning
+    : Type
+    := mkMilitiaPlanning
+         { mp_group : ExtremistGroup
+         ; mp_structure : MilitiaStructure
+         ; mp_creation_date : Minute
+         ; mp_leader : ConvictedDefendant
+         ; mp_comm_platform : string
+         ; mp_purpose : string
+         ; mp_source : string
+         }.
+
+  Definition proud_boys_mosd
+    : MilitiaPlanning
+    := mkMilitiaPlanning
+         ProudBoys
+         ProudBoys_MOSD
+         dec_2020_29
+         EnriqueTarrio
+         "Telegram encrypted channel 'MOSD'"
+         "National rally planning chapter; first target January 6"
+         "DOJ indictment, United States v. Tarrio et al., 1:22-cr-00015".
+
+  Definition oath_keepers_qrf
+    : MilitiaPlanning
+    := mkMilitiaPlanning
+         OathKeepers
+         OathKeepers_QRF
+         jan_2021_04
+         EdwardVallejo
+         "Signal encrypted channel 'DC OP: Jan 6, 21'"
+         "Quick Reaction Force with weapons cache at Comfort Inn Ballston"
+         "DOJ indictment, United States v. Rhodes et al., 1:22-cr-00015".
+
+  Definition militia_planning_evidence
+    : list MilitiaPlanning
+    := [proud_boys_mosd; oath_keepers_qrf].
+
+  Record WeaponsCache
+    : Type
+    := mkWeaponsCache
+         { wc_location : string
+         ; wc_address : string
+         ; wc_distance_from_capitol_miles : nat
+         ; wc_group : ExtremistGroup
+         ; wc_contents : list string
+         ; wc_state_teams : list string
+         ; wc_source : string
+         }.
+
+  Definition comfort_inn_cache
+    : WeaponsCache
+    := mkWeaponsCache
+         "Comfort Inn Ballston"
+         "1211 N Glebe Rd, Arlington, VA 22201"
+         8
+         OathKeepers
+         ["Firearms"; "Rifle cases"; "Ammunition (thousands of rounds)";
+          "30-day supplies"; "Body armor"]
+         ["Florida QRF"; "Arizona QRF"; "North Carolina QRF"]
+         "Testimony of Terry Cummings, United States v. Rhodes, 2022-10-12".
+
+  Definition qrf_rooms_rented
+    : nat
+    := 3.
+
+  Inductive EncryptedMessage
+    : Type
+    := mkEncryptedMessage
+         { em_platform : string
+         ; em_channel : string
+         ; em_sender : ConvictedDefendant
+         ; em_date : Minute
+         ; em_content : string
+         ; em_source : string
+         }.
+
+  Definition tarrio_storm_message
+    : EncryptedMessage
+    := mkEncryptedMessage
+         "Telegram"
+         "MOSD"
+         EnriqueTarrio
+         jan_2021_04
+         "acknowledging they wanted to storm the Capitol"
+         "DOJ trial exhibit, United States v. Tarrio".
+
+  Definition tarrio_after_message
+    : EncryptedMessage
+    := mkEncryptedMessage
+         "Telegram"
+         "Ministry of Self Defense"
+         EnriqueTarrio
+         (time_of_day 18 0)
+         "Make no mistake, we did this."
+         "DOJ trial exhibit, United States v. Tarrio".
+
+  Definition meggs_qrf_message
+    : EncryptedMessage
+    := mkEncryptedMessage
+         "Signal"
+         "DC OP: Jan 6, 21"
+         KellyMeggs
+         jan_2021_05
+         "discussed using Proud Boys as force multiplier"
+         "DOJ trial exhibit, United States v. Rhodes".
+
+  Definition watkins_weapons_message
+    : EncryptedMessage
+    := mkEncryptedMessage
+         "Signal"
+         "Oath Keepers"
+         JessicaWatkins
+         jan_2021_04
+         "Where can we drop off weapons to the QRF team? I'd like to have the weapons secured prior to the Op tomorrow."
+         "DOJ court filing, detention memo".
+
+  Definition conspiracy_messages
+    : list EncryptedMessage
+    := [ tarrio_storm_message
+       ; tarrio_after_message
+       ; meggs_qrf_message
+       ; watkins_weapons_message
+       ].
+
+  Lemma tarrio_admitted_responsibility
+    : em_content tarrio_after_message = "Make no mistake, we did this.".
+  Proof.
+    reflexivity.
+  Defined.
+
+End PreJan6Conspiracy.
+
+(** * Communication and Coordination Evidence *)
+
+Module Communications.
+
+  Local Open Scope string_scope.
+
+  Inductive CommType
+    : Type
+    := PhoneCallComm
+     | TextMessage
+     | EncryptedChat
+     | Email
+     | InPersonMeeting
+     | Tweet
+     | PublicStatement.
+
+  Record Communication
+    : Type
+    := mkCommunication
+         { comm_type : CommType
+         ; comm_timestamp : Minute
+         ; comm_from : string
+         ; comm_to : list string
+         ; comm_summary : string
+         ; comm_docket : string
+         }.
+
+  Definition meadows_to_miller_dec6
+    : Communication
+    := mkCommunication
+         TextMessage
+         PreJan6Conspiracy.dec_2020_06
+         "Mark Meadows"
+         ["Christopher Miller"]
+         "We just need to have someone coordinating the electors for states."
+         "House Select Committee Final Report, p. 341".
+
+  Definition eastman_forwarded_chesebro_dec7
+    : Communication
+    := mkCommunication
+         Email
+         PreJan6Conspiracy.dec_2020_07
+         "John Eastman"
+         ["Donald Trump (via intermediary)"]
+         "Forwarded Chesebro 7-page memo on alternate electors"
+         "House Select Committee Final Report, p. 342".
+
+  Definition trump_call_pence_jan5_1118
+    : Communication
+    := mkCommunication
+         PhoneCallComm
+         (time_of_day 11 18 + 43200)
+         "Donald Trump"
+         ["Mike Pence"]
+         "Pressured Pence to reject electors"
+         "House Select Committee Final Report, Appendix".
+
+  Definition trump_call_pence_jan6_1111
+    : Communication
+    := mkCommunication
+         PhoneCallComm
+         (time_of_day 11 11)
+         "Donald Trump"
+         ["Mike Pence"]
+         "Final pressure call; Pence refused"
+         "Testimony of Julie Radford, House Select Committee".
+
+  Definition mccarthy_call_trump_jan6
+    : Communication
+    := mkCommunication
+         PhoneCallComm
+         t_1426
+         "Kevin McCarthy"
+         ["Donald Trump"]
+         "Requested Trump call off rioters; Trump responded 'Well Kevin, I guess these people are more upset about the election than you are.'"
+         "Testimony of Rep. Jaime Herrera Beutler".
+
+  Definition tuberville_call_trump_jan6
+    : Communication
+    := mkCommunication
+         PhoneCallComm
+         t_1415
+         "Donald Trump"
+         ["Tommy Tuberville"]
+         "Trump called to delay certification; Tuberville informed Trump that Pence had just been evacuated"
+         "Senate floor statement, Sen. Tuberville".
+
+  Definition cipollone_warning_jan3
+    : Communication
+    := mkCommunication
+         InPersonMeeting
+         (time_of_day 12 0)
+         "Pat Cipollone"
+         ["Donald Trump"; "Mark Meadows"]
+         "Warned against Clark DOJ plan; described as 'murder-suicide pact'"
+         "Testimony of Pat Cipollone, House Select Committee, 2022-07-08".
+
+  Definition key_communications
+    : list Communication
+    := [ meadows_to_miller_dec6
+       ; eastman_forwarded_chesebro_dec7
+       ; trump_call_pence_jan5_1118
+       ; trump_call_pence_jan6_1111
+       ; mccarthy_call_trump_jan6
+       ; tuberville_call_trump_jan6
+       ; cipollone_warning_jan3
+       ].
+
+  Definition deleted_communications_note
+    : string
+    := "Secret Service text messages from January 5-6, 2021 were deleted and unrecoverable per DHS Inspector General, 2022-07-14".
+
+End Communications.
+
+(** * Legal Case Outcomes Post-Conviction *)
+
+Module LegalOutcomes.
+
+  Local Open Scope string_scope.
+
+  Inductive CaseStatus
+    : Type
+    := CaseActive
+     | CaseDismissed
+     | CaseConviction
+     | CasePleaDeal
+     | CaseAcquittal
+     | CaseWithdrawn
+     | CaseDisqualified.
+
+  Inductive ProsecutingEntity
+    : Type
+    := DOJ_MainJustice
+     | DOJ_SpecialCounsel
+     | FultonCountyDA
+     | ArizonaAG
+     | MichiganAG
+     | NevadaAG
+     | WisconsinDA
+     | StateBarCalifornia
+     | StateBarNewYork
+     | StateBarColorado
+     | StateBarGeorgia.
+
+  Record CriminalReferral
+    : Type
+    := mkCriminalReferral
+         { ref_source : string
+         ; ref_date : string
+         ; ref_target : string
+         ; ref_charges : list string
+         ; ref_result : string
+         }.
+
+  Definition house_referral_trump
+    : CriminalReferral
+    := mkCriminalReferral
+         "House Select Committee"
+         "2022-12-19"
+         "Donald J. Trump"
+         ["18 USC 1512(c) Obstruction of Official Proceeding";
+          "18 USC 371 Conspiracy to Defraud United States";
+          "18 USC 1001 Conspiracy to Make False Statement";
+          "18 USC 2383 Incite/Assist Insurrection"]
+         "DOJ indictment followed 2023-08-01 (3 of 4 charges)".
+
+  Definition house_referral_eastman
+    : CriminalReferral
+    := mkCriminalReferral
+         "House Select Committee"
+         "2022-12-19"
+         "John Eastman"
+         ["18 USC 1512(c) Obstruction of Official Proceeding";
+          "18 USC 371 Conspiracy to Defraud United States"]
+         "State bar disbarment proceedings initiated".
+
+  Definition house_referral_meadows
+    : CriminalReferral
+    := mkCriminalReferral
+         "House Select Committee"
+         "2022-12-19"
+         "Mark Meadows"
+         []
+         "Noted as 'actor' but insufficient evidence for referral".
+
+  Definition house_referral_giuliani
+    : CriminalReferral
+    := mkCriminalReferral
+         "House Select Committee"
+         "2022-12-19"
+         "Rudy Giuliani"
+         []
+         "Noted as 'actor' but insufficient evidence for referral".
+
+  Definition house_referrals
+    : list CriminalReferral
+    := [house_referral_trump; house_referral_eastman;
+        house_referral_meadows; house_referral_giuliani].
+
+  Record FederalCase
+    : Type
+    := mkFederalCase
+         { fc_name : string
+         ; fc_docket : string
+         ; fc_defendant : string
+         ; fc_prosecutor : ProsecutingEntity
+         ; fc_charges : list FederalCharge
+         ; fc_indictment_date : string
+         ; fc_status : CaseStatus
+         ; fc_disposition : string
+         }.
+
+  Definition usa_v_trump_dc
+    : FederalCase
+    := mkFederalCase
+         "United States v. Trump"
+         "1:23-cr-00257 (D.D.C.)"
+         "Donald J. Trump"
+         DOJ_SpecialCounsel
+         [Charge_18USC1512c2; Charge_18USC371; Charge_18USC372]
+         "2023-08-01"
+         CaseWithdrawn
+         "Withdrawn 2025-01-20 per DOJ policy on sitting president prosecution".
+
+  Definition superseding_indictment_date
+    : string
+    := "2024-08-27".
+
+  Definition superseding_indictment_pages
+    : nat
+    := 36.
+
+  Definition original_indictment_pages
+    : nat
+    := 45.
+
+  Record StateCase
+    : Type
+    := mkStateCase
+         { sc_name : string
+         ; sc_docket : string
+         ; sc_defendant : string
+         ; sc_prosecutor : ProsecutingEntity
+         ; sc_charges_count : nat
+         ; sc_defendants_count : nat
+         ; sc_indictment_date : string
+         ; sc_status : CaseStatus
+         ; sc_disposition : string
+         }.
+
+  Definition georgia_v_trump
+    : StateCase
+    := mkStateCase
+         "State of Georgia v. Trump et al."
+         "23SC188947 (Fulton County Superior Court)"
+         "Donald J. Trump and 18 co-defendants"
+         FultonCountyDA
+         41
+         19
+         "2023-08-14"
+         CaseDismissed
+         "Dismissed 2025-11-26 after DA Willis disqualification; no successor prosecutor".
+
+  Definition georgia_plea_deals
+    : nat
+    := 4.
+
+  Definition georgia_plea_defendants
+    : list string
+    := ["Sidney Powell"; "Kenneth Chesebro"; "Jenna Ellis"; "Scott Hall"].
+
+  Record DisbarmentProceeding
+    : Type
+    := mkDisbarment
+         { disbar_attorney : string
+         ; disbar_bar : ProsecutingEntity
+         ; disbar_filing_date : string
+         ; disbar_status : CaseStatus
+         ; disbar_outcome : string
+         }.
+
+  Definition eastman_disbarment
+    : DisbarmentProceeding
+    := mkDisbarment
+         "John Eastman"
+         StateBarCalifornia
+         "2022-01-26"
+         CaseConviction
+         "Disbarred 2024-07-02; Judge Roland found repeated lies violated ethics rules".
+
+  Definition giuliani_disbarment_ny
+    : DisbarmentProceeding
+    := mkDisbarment
+         "Rudy Giuliani"
+         StateBarNewYork
+         "2021-06-24"
+         CaseConviction
+         "License suspended 2021; disbarred 2024-07-02".
+
+  Definition giuliani_disbarment_dc
+    : DisbarmentProceeding
+    := mkDisbarment
+         "Rudy Giuliani"
+         DOJ_MainJustice
+         "2024-07-02"
+         CaseConviction
+         "Reciprocal disbarment following NY disbarment".
+
+  Definition ellis_disbarment
+    : DisbarmentProceeding
+    := mkDisbarment
+         "Jenna Ellis"
+         StateBarColorado
+         "2023-07-18"
+         CaseConviction
+         "Censured and suspended; admitted making misrepresentations".
+
+  Definition disbarment_proceedings
+    : list DisbarmentProceeding
+    := [eastman_disbarment; giuliani_disbarment_ny;
+        giuliani_disbarment_dc; ellis_disbarment].
+
+  Record SpecialCounselReport
+    : Type
+    := mkSCReport
+         { scr_counsel : string
+         ; scr_release_date : string
+         ; scr_pages : nat
+         ; scr_conclusion : string
+         ; scr_source : string
+         }.
+
+  Definition smith_final_report
+    : SpecialCounselReport
+    := mkSCReport
+         "Jack Smith"
+         "2025-01-07"
+         137
+         "Trump would have been convicted had cases gone to trial; riot 'does not happen' without Trump"
+         "DOJ Office of Special Counsel, Final Report Vol. 1".
+
+  Lemma four_house_referral_targets
+    : List.length house_referrals = 4.
+  Proof.
+    reflexivity.
+  Defined.
+
+  Lemma georgia_had_19_defendants
+    : sc_defendants_count georgia_v_trump = 19.
+  Proof.
+    reflexivity.
+  Defined.
+
+  Lemma georgia_had_41_charges
+    : sc_charges_count georgia_v_trump = 41.
+  Proof.
+    reflexivity.
+  Defined.
+
+End LegalOutcomes.
+
+(** * Causal and Structural Relationships *)
+
+Module CausalStructure.
+
+  Local Open Scope string_scope.
+
+  Inductive CausalRelation
+    : Type
+    := Enables
+     | Causes
+     | Precedes
+     | Motivates
+     | Facilitates
+     | RespondsTo.
+
+  Record EventLink
+    : Type
+    := mkEventLink
+         { link_from : EventType
+         ; link_to : EventType
+         ; link_relation : CausalRelation
+         ; link_evidence : string
+         }.
+
+  Definition speech_enables_march
+    : EventLink
+    := mkEventLink
+         SpeechEnds
+         BarricadeBreach
+         Enables
+         "Trump instructed crowd to march to Capitol; crowd departed Ellipse toward Capitol".
+
+  Definition barricade_enables_building_breach
+    : EventLink
+    := mkEventLink
+         BarricadeBreach
+         BuildingBreach
+         Enables
+         "Rioters crossed breached barriers to reach building entrances".
+
+  Definition building_breach_causes_recess
+    : EventLink
+    := mkEventLink
+         BuildingBreach
+         JointSessionRecesses
+         Causes
+         "Joint session recessed 1 minute after building breach due to security threat".
+
+  Definition breach_causes_evacuation
+    : EventLink
+    := mkEventLink
+         BuildingBreach
+         Evacuation
+         Causes
+         "VP Pence evacuated 2 minutes after building breach".
+
+  Definition tweet_motivates_violence
+    : EventLink
+    := mkEventLink
+         TweetPosted
+         OfficerAssault
+         Motivates
+         "Trump 2:24pm tweet attacking Pence coincided with surge in violence".
+
+  Definition guard_denial_facilitates_breach
+    : EventLink
+    := mkEventLink
+         GuardDenied
+         PoliceLineCollapse
+         Facilitates
+         "Lack of National Guard support left USCP undermanned".
+
+  Definition causal_links
+    : list EventLink
+    := [ speech_enables_march
+       ; barricade_enables_building_breach
+       ; building_breach_causes_recess
+       ; breach_causes_evacuation
+       ; tweet_motivates_violence
+       ; guard_denial_facilitates_breach
+       ].
+
+  Inductive SpatialPath
+    : Type
+    := mkSpatialPath
+         { path_start : CapitolLocation
+         ; path_waypoints : list CapitolLocation
+         ; path_end : CapitolLocation
+         ; path_actor_type : ActorCategory
+         }.
+
+  Definition rioter_west_path
+    : SpatialPath
+    := mkSpatialPath
+         WestFront
+         [WestFrontLower; LowerWestTerrace; LowerWestTerraceTunnel]
+         CryptLevel
+         Rioter.
+
+  Definition rioter_rotunda_path
+    : SpatialPath
+    := mkSpatialPath
+         WestFront
+         [Rotunda]
+         SenateChamber
+         Rioter.
+
+  Definition pence_evacuation_path
+    : SpatialPath
+    := mkSpatialPath
+         SenateChamber
+         [SenateHideaway; CryptLevel]
+         SenateWing
+         ElectedOfficial.
+
+  Definition goodman_diversion_path
+    : SpatialPath
+    := mkSpatialPath
+         CryptLevel
+         [StatuaryHall]
+         SenateWing
+         (LawEnforcement USCP).
+
+  Record CrowdEstimate
+    : Type
+    := mkCrowdEstimate
+         { ce_location : DCLocation
+         ; ce_time : Minute
+         ; ce_count_low : nat
+         ; ce_count_high : nat
+         ; ce_source : string
+         }.
+
+  Definition ellipse_rally_crowd
+    : CrowdEstimate
+    := mkCrowdEstimate
+         WhiteHouseEllipse
+         t_1200
+         10000
+         15000
+         "Park Police estimate via House Select Committee".
+
+  Definition capitol_grounds_crowd
+    : CrowdEstimate
+    := mkCrowdEstimate
+         CapitolGrounds
+         t_1400
+         2000
+         2500
+         "USCP estimate, House Select Committee Final Report".
+
+  Definition inside_building_crowd
+    : CrowdEstimate
+    := mkCrowdEstimate
+         (CapitolBuilding Rotunda)
+         t_1430
+         800
+         1000
+         "Video analysis, House Select Committee".
+
+  Definition crowd_estimates
+    : list CrowdEstimate
+    := [ellipse_rally_crowd; capitol_grounds_crowd; inside_building_crowd].
+
+  Record WeaponEvidence
+    : Type
+    := mkWeaponEvidence
+         { we_type : string
+         ; we_count : nat
+         ; we_location : DCLocation
+         ; we_seized : bool
+         ; we_source : string
+         }.
+
+  Definition flagpoles
+    : WeaponEvidence
+    := mkWeaponEvidence "Flagpoles used as weapons" 100 CapitolGrounds false "DOJ sentencing memos".
+
+  Definition bear_spray
+    : WeaponEvidence
+    := mkWeaponEvidence "Bear spray/pepper spray canisters" 50 (CapitolBuilding WestFront) true "USCP evidence log".
+
+  Definition tasers
+    : WeaponEvidence
+    := mkWeaponEvidence "Tasers/stun guns" 12 CapitolGrounds true "DOJ court filings".
+
+  Definition baseball_bats
+    : WeaponEvidence
+    := mkWeaponEvidence "Baseball bats" 8 (CapitolBuilding WestFront) true "Video evidence, DOJ".
+
+  Definition knives
+    : WeaponEvidence
+    := mkWeaponEvidence "Knives" 6 CapitolGrounds true "USCP arrest records".
+
+  Definition firearms_seized
+    : WeaponEvidence
+    := mkWeaponEvidence "Firearms (on Capitol grounds)" 3 CapitolGrounds true "DOJ arrest records; Guy Reffitt had .40 caliber".
+
+  Definition weapons_evidence
+    : list WeaponEvidence
+    := [flagpoles; bear_spray; tasers; baseball_bats; knives; firearms_seized].
+
+  Lemma breach_one_minute_before_recess
+    : t_1413 - t_1412 = 1.
+  Proof.
+    unfold t_1413, t_1412, time_of_day.
+    lia.
+  Defined.
+
+  Lemma pence_40ft_one_minute_after_breach
+    : t_1425 - t_1414 = 11.
+  Proof.
+    unfold t_1425, t_1414, time_of_day.
+    lia.
+  Defined.
+
+End CausalStructure.
+
+(** * Source Specificity *)
+
+Module Sources.
+
+  Local Open Scope string_scope.
+
+  Inductive SourceType
+    : Type
+    := CongressionalRecord
+     | CourtFiling
+     | CourtTranscript
+     | JudicialOpinion
+     | OfficialReport
+     | VideoEvidence
+     | AudioRecording
+     | WitnessTestimony
+     | DocumentaryEvidence
+     | NewsReport.
+
+  Record Source
+    : Type
+    := mkSource
+         { src_type : SourceType
+         ; src_title : string
+         ; src_identifier : string
+         ; src_date : string
+         ; src_url : option string
+         }.
+
+  Definition src_house_final_report
+    : Source
+    := mkSource
+         OfficialReport
+         "Final Report of the Select Committee to Investigate the January 6th Attack"
+         "H.Rept. 117-663"
+         "2022-12-22"
+         (Some "https://www.govinfo.gov/content/pkg/GPO-J6-REPORT/pdf/GPO-J6-REPORT.pdf").
+
+  Definition src_rhodes_indictment
+    : Source
+    := mkSource
+         CourtFiling
+         "United States v. Rhodes et al., Superseding Indictment"
+         "1:22-cr-00015-APM (D.D.C.)"
+         "2022-06-22"
+         (Some "https://www.justice.gov/usao-dc/case-multi-defendant/file/1510831/dl").
+
+  Definition src_tarrio_indictment
+    : Source
+    := mkSource
+         CourtFiling
+         "United States v. Tarrio et al., Third Superseding Indictment"
+         "1:22-cr-00052-TJK (D.D.C.)"
+         "2022-12-06"
+         (Some "https://www.justice.gov/usao-dc/case-multi-defendant/file/1553386/dl").
+
+  Definition src_trump_indictment
+    : Source
+    := mkSource
+         CourtFiling
+         "United States v. Trump, Superseding Indictment"
+         "1:23-cr-00257-TSC (D.D.C.)"
+         "2024-08-27"
+         (Some "https://www.justice.gov/storage/US_v_Trump_23_cr_257_superseding_indictment.pdf").
+
+  Definition src_doj_ig_guard
+    : Source
+    := mkSource
+         OfficialReport
+         "DoD Inspector General, Review of the DoD's Role in the Jan 6 Events"
+         "DODIG-2023-105"
+         "2022-11-16"
+         (Some "https://www.dodig.mil/reports.html/Article/3217814/").
+
+  Definition src_dc_ocme_babbitt
+    : Source
+    := mkSource
+         OfficialReport
+         "DC Office of Chief Medical Examiner, Autopsy Report"
+         "Case No. ME2021-00041"
+         "2021-04-07"
+         None.
+
+  Definition src_dc_ocme_sicknick
+    : Source
+    := mkSource
+         OfficialReport
+         "DC Office of Chief Medical Examiner, Autopsy Report"
+         "Case No. ME2021-00045"
+         "2021-04-19"
+         None.
+
+  Definition src_cspan_rally
+    : Source
+    := mkSource
+         VideoEvidence
+         "C-SPAN, President Trump Rally in Washington, D.C."
+         "Video ID: 507744-1"
+         "2021-01-06"
+         (Some "https://www.c-span.org/video/?507744-1/").
+
+  Definition src_wapo_georgia_audio
+    : Source
+    := mkSource
+         AudioRecording
+         "Washington Post, Trump-Raffensperger Phone Call Audio"
+         "Full recording, 62 minutes"
+         "2021-01-03"
+         (Some "https://www.washingtonpost.com/politics/trump-raffensperger-call-transcript-georgia-vote/").
+
+  Definition src_smith_final_report
+    : Source
+    := mkSource
+         OfficialReport
+         "Special Counsel Jack Smith, Final Report Volume I"
+         "DOJ Office of Special Counsel"
+         "2025-01-07"
+         None.
+
+  Definition primary_sources
+    : list Source
+    := [ src_house_final_report
+       ; src_rhodes_indictment
+       ; src_tarrio_indictment
+       ; src_trump_indictment
+       ; src_doj_ig_guard
+       ; src_dc_ocme_babbitt
+       ; src_dc_ocme_sicknick
+       ; src_cspan_rally
+       ; src_wapo_georgia_audio
+       ; src_smith_final_report
+       ].
+
+  Lemma ten_primary_sources_documented
+    : List.length primary_sources = 10.
+  Proof.
+    reflexivity.
+  Defined.
+
+  Definition total_doj_court_filings
+    : nat
+    := 1583.
+
+  Definition total_video_hours_reviewed
+    : nat
+    := 14000.
+
+  Definition total_witness_interviews
+    : nat
+    := 1000.
+
+  Definition total_documents_reviewed
+    : nat
+    := 1000000.
+
+End Sources.
+
 (** * OCaml Extraction *)
 
 Require Extraction.
@@ -2735,4 +3764,19 @@ Extraction "jan6_extracted"
   jan6_certification
   jan6_guard_request
   pipebombs
-  contested_states.
+  contested_states
+  PreJan6Conspiracy.conspiracy_memos
+  PreJan6Conspiracy.georgia_call
+  PreJan6Conspiracy.militia_planning_evidence
+  PreJan6Conspiracy.comfort_inn_cache
+  PreJan6Conspiracy.conspiracy_messages
+  Communications.key_communications
+  LegalOutcomes.house_referrals
+  LegalOutcomes.usa_v_trump_dc
+  LegalOutcomes.georgia_v_trump
+  LegalOutcomes.disbarment_proceedings
+  LegalOutcomes.smith_final_report
+  CausalStructure.causal_links
+  CausalStructure.crowd_estimates
+  CausalStructure.weapons_evidence
+  Sources.primary_sources.

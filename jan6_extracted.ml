@@ -5,6 +5,42 @@ type ('a, 'b) sum =
 
 
 
+type uint =
+| Nil
+| D0 of uint
+| D1 of uint
+| D2 of uint
+| D3 of uint
+| D4 of uint
+| D5 of uint
+| D6 of uint
+| D7 of uint
+| D8 of uint
+| D9 of uint
+
+type uint0 =
+| Nil0
+| D10 of uint0
+| D11 of uint0
+| D12 of uint0
+| D13 of uint0
+| D14 of uint0
+| D15 of uint0
+| D16 of uint0
+| D17 of uint0
+| D18 of uint0
+| D19 of uint0
+| Da of uint0
+| Db of uint0
+| Dc of uint0
+| Dd of uint0
+| De of uint0
+| Df of uint0
+
+type uint1 =
+| UIntDecimal of uint
+| UIntHexadecimal of uint0
+
 (** val add : int -> int -> int **)
 
 let rec add n m =
@@ -20,6 +56,275 @@ let rec mul n m =
     (fun _ -> 0)
     (fun p -> add m (mul p m))
     n
+
+(** val tail_add : int -> int -> int **)
+
+let rec tail_add n m =
+  (fun fO fS n -> if n = 0 then fO () else fS (n - 1))
+    (fun _ -> m)
+    (fun n0 -> tail_add n0 ((fun n -> n + 1) m))
+    n
+
+(** val tail_addmul : int -> int -> int -> int **)
+
+let rec tail_addmul r n m =
+  (fun fO fS n -> if n = 0 then fO () else fS (n - 1))
+    (fun _ -> r)
+    (fun n0 -> tail_addmul (tail_add m r) n0 m)
+    n
+
+(** val tail_mul : int -> int -> int **)
+
+let tail_mul n m =
+  tail_addmul 0 n m
+
+(** val of_uint_acc : uint -> int -> int **)
+
+let rec of_uint_acc d acc =
+  match d with
+  | Nil -> acc
+  | D0 d0 ->
+    of_uint_acc d0
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc)
+  | D1 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc))
+  | D2 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc)))
+  | D3 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc))))
+  | D4 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc)))))
+  | D5 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc))))))
+  | D6 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc)))))))
+  | D7 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc))))))))
+  | D8 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc)))))))))
+  | D9 d0 ->
+    of_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))) acc))))))))))
+
+(** val of_uint : uint -> int **)
+
+let of_uint d =
+  of_uint_acc d 0
+
+(** val of_hex_uint_acc : uint0 -> int -> int **)
+
+let rec of_hex_uint_acc d acc =
+  match d with
+  | Nil0 -> acc
+  | D10 d0 ->
+    of_hex_uint_acc d0
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)
+  | D11 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))
+  | D12 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))
+  | D13 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))
+  | D14 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))
+  | D15 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))
+  | D16 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))))
+  | D17 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))))
+  | D18 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))))))
+  | D19 d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))))))
+  | Da d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))))))))
+  | Db d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))))))))
+  | Dc d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))))))))))
+  | Dd d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))))))))))
+  | De d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc)))))))))))))))
+  | Df d0 ->
+    of_hex_uint_acc d0 ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      (tail_mul ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))))))) acc))))))))))))))))
+
+(** val of_hex_uint : uint0 -> int **)
+
+let of_hex_uint d =
+  of_hex_uint_acc d 0
+
+(** val of_num_uint : uint1 -> int **)
+
+let of_num_uint = function
+| UIntDecimal d0 -> of_uint d0
+| UIntHexadecimal d0 -> of_hex_uint d0
 
 type ascii =
 | Ascii of bool * bool * bool * bool * bool * bool * bool * bool
@@ -1777,8 +2082,11 @@ type federalCharge =
 | Charge_18USC1361
 | Charge_18USC1752
 | Charge_40USC5104
+| Charge_18USC371
 | Charge_18USC372
+| Charge_18USC1001
 | Charge_18USC1519
+| Charge_18USC241
 
 type sentencingEnhancement =
 | TerrorismEnhancement
@@ -2962,3 +3270,10309 @@ let dnc_pipebomb =
 
 let pipebombs =
   rnc_pipebomb::(dnc_pipebomb::[])
+
+module PreJan6Conspiracy =
+ struct
+  (** val dec_2020_06 : minute **)
+
+  let dec_2020_06 =
+    0
+
+  (** val dec_2020_07 : minute **)
+
+  let dec_2020_07 =
+    (fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+  (** val dec_2020_09 : minute **)
+
+  let dec_2020_09 =
+    (fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+  (** val dec_2020_19 : minute **)
+
+  let dec_2020_19 =
+    of_num_uint (UIntDecimal (D1 (D8 (D7 (D2 (D0 Nil))))))
+
+  (** val dec_2020_29 : minute **)
+
+  let dec_2020_29 =
+    of_num_uint (UIntDecimal (D3 (D3 (D1 (D2 (D0 Nil))))))
+
+  (** val jan_2021_02 : minute **)
+
+  let jan_2021_02 =
+    of_num_uint (UIntDecimal (D3 (D8 (D8 (D8 (D0 Nil))))))
+
+  (** val jan_2021_04 : minute **)
+
+  let jan_2021_04 =
+    of_num_uint (UIntDecimal (D4 (D1 (D7 (D6 (D0 Nil))))))
+
+  (** val jan_2021_05 : minute **)
+
+  let jan_2021_05 =
+    of_num_uint (UIntDecimal (D4 (D3 (D2 (D0 (D0 Nil))))))
+
+  type coq_ConspiracyActor =
+  | CA_Trump
+  | CA_Eastman
+  | CA_Chesebro
+  | CA_Giuliani
+  | CA_Meadows
+  | CA_Clark
+  | CA_Ellis
+  | CA_Powell
+  | CA_Tarrio
+  | CA_Rhodes
+  | CA_Meggs
+  | CA_Biggs
+  | CA_Nordean
+
+  type coq_ConspiracyMemo =
+  | CheseberoMemo_Dec6
+  | CheseberoMemo_Dec9
+  | EastmanMemo_TwoPage
+  | EastmanMemo_SixPage
+
+  type coq_LegalMemo = { memo_type : coq_ConspiracyMemo;
+                         memo_author : coq_ConspiracyActor;
+                         memo_date : minute; memo_pages : int;
+                         memo_subject : string; memo_source : string }
+
+  (** val chesebro_dec6_memo : coq_LegalMemo **)
+
+  let chesebro_dec6_memo =
+    { memo_type = CheseberoMemo_Dec6; memo_author = CA_Chesebro; memo_date =
+      dec_2020_06; memo_pages = ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) 0))))))); memo_subject = (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, true, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      memo_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, false, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, true, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val chesebro_dec9_memo : coq_LegalMemo **)
+
+  let chesebro_dec9_memo =
+    { memo_type = CheseberoMemo_Dec9; memo_author = CA_Chesebro; memo_date =
+      dec_2020_09; memo_pages = ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) 0)))); memo_subject = (String
+      ((Ascii (true, true, true, false, true, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      memo_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, false, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, true, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val eastman_twopage_memo : coq_LegalMemo **)
+
+  let eastman_twopage_memo =
+    { memo_type = EastmanMemo_TwoPage; memo_author = CA_Eastman; memo_date =
+      dec_2020_19; memo_pages = ((fun n -> n + 1) ((fun n -> n + 1) 0));
+      memo_subject = (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, true, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, true,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      true, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      memo_source = (String ((Ascii (true, true, true, false, true, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, true, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, true, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, true, false, true, false, false)), (String
+      ((Ascii (true, true, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, true, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, false, true,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val eastman_sixpage_memo : coq_LegalMemo **)
+
+  let eastman_sixpage_memo =
+    { memo_type = EastmanMemo_SixPage; memo_author = CA_Eastman; memo_date =
+      dec_2020_19; memo_pages = ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0)))))); memo_subject = (String ((Ascii (true, false, true, false,
+      false, false, true, false)), (String ((Ascii (false, false, false,
+      true, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, true, false, true, false, true,
+      false)), (String ((Ascii (false, false, false, false, true, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      memo_source = (String ((Ascii (true, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val conspiracy_memos : coq_LegalMemo list **)
+
+  let conspiracy_memos =
+    chesebro_dec6_memo::(chesebro_dec9_memo::(eastman_twopage_memo::(eastman_sixpage_memo::[])))
+
+  type coq_PhoneCall = { call_date : minute; call_duration_minutes : 
+                         int; call_caller : coq_ConspiracyActor;
+                         call_participants : string list;
+                         call_key_quote : string; call_source : string }
+
+  (** val georgia_call : coq_PhoneCall **)
+
+  let georgia_call =
+    { call_date = jan_2021_02; call_duration_minutes = ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      call_caller = CA_Trump; call_participants = ((String ((Ascii (false,
+      true, false, false, false, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))::((String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, false, true, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))::((String ((Ascii (true, false,
+      true, true, false, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))::((String ((Ascii (true, true,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))::((String ((Ascii (false, true,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, false, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))::((String ((Ascii (false, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))::[])))))); call_key_quote =
+      (String ((Ascii (true, false, false, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (true,
+      true, true, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, true, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      call_source = (String ((Ascii (true, true, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      true, false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  type coq_MilitiaStructure =
+  | ProudBoys_MOSD
+  | OathKeepers_QRF
+  | OathKeepers_StackOne
+  | OathKeepers_StackTwo
+
+  type coq_MilitiaPlanning = { mp_group : extremistGroup;
+                               mp_structure : coq_MilitiaStructure;
+                               mp_creation_date : minute;
+                               mp_leader : convictedDefendant;
+                               mp_comm_platform : string;
+                               mp_purpose : string; mp_source : string }
+
+  (** val proud_boys_mosd : coq_MilitiaPlanning **)
+
+  let proud_boys_mosd =
+    { mp_group = ProudBoys; mp_structure = ProudBoys_MOSD; mp_creation_date =
+      dec_2020_29; mp_leader = EnriqueTarrio; mp_comm_platform = (String
+      ((Ascii (false, false, true, false, true, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      mp_purpose = (String ((Ascii (false, true, true, true, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, true, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, false, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, true, false, true, true,
+      false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      mp_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, true, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val oath_keepers_qrf : coq_MilitiaPlanning **)
+
+  let oath_keepers_qrf =
+    { mp_group = OathKeepers; mp_structure = OathKeepers_QRF;
+      mp_creation_date = jan_2021_04; mp_leader = EdwardVallejo;
+      mp_comm_platform = (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, false, true, false)), (String ((Ascii (true,
+      true, false, false, false, false, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, true, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, true, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, false, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, true, false, true, true,
+      false, false)), (String ((Ascii (false, false, true, true, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      mp_purpose = (String ((Ascii (true, false, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, true, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      mp_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, false, true, false, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, true, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val militia_planning_evidence : coq_MilitiaPlanning list **)
+
+  let militia_planning_evidence =
+    proud_boys_mosd::(oath_keepers_qrf::[])
+
+  type coq_WeaponsCache = { wc_location : string; wc_address : string;
+                            wc_distance_from_capitol_miles : int;
+                            wc_group : extremistGroup;
+                            wc_contents : string list;
+                            wc_state_teams : string list; wc_source : 
+                            string }
+
+  (** val comfort_inn_cache : coq_WeaponsCache **)
+
+  let comfort_inn_cache =
+    { wc_location = (String ((Ascii (true, true, false, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))); wc_address =
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, true, true, false, false, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, false, false,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, false, true, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      wc_distance_from_capitol_miles = ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) 0)))))))); wc_group = OathKeepers;
+      wc_contents = ((String ((Ascii (false, true, true, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), EmptyString))))))))))))))))::((String ((Ascii (false,
+      true, false, false, true, false, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))::((String ((Ascii (true, false,
+      false, false, false, false, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::((String
+      ((Ascii (true, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), EmptyString))))))))))))))))))))))))))))))::((String ((Ascii
+      (false, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))::[]))))); wc_state_teams = ((String
+      ((Ascii (false, true, true, false, false, false, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (false, true, true, false, false, false, true, false)),
+      EmptyString))))))))))))))))))))))::((String ((Ascii (true, false,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, false, true, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, false, true, false)), (String
+      ((Ascii (false, true, false, false, true, false, true, false)), (String
+      ((Ascii (false, true, true, false, false, false, true, false)),
+      EmptyString))))))))))))))))))))))::((String ((Ascii (false, true, true,
+      true, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, false, true, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (false, true, true, false, false, false, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))::[]))); wc_source =
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (true, false, true, true, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  type coq_EncryptedMessage = { em_platform : string; em_channel : string;
+                                em_sender : convictedDefendant;
+                                em_date : minute; em_content : string;
+                                em_source : string }
+
+  (** val tarrio_storm_message : coq_EncryptedMessage **)
+
+  let tarrio_storm_message =
+    { em_platform = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), EmptyString)))))))))))))))); em_channel = (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, false, true, false)), (String
+      ((Ascii (true, true, false, false, true, false, true, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      EmptyString)))))))); em_sender = EnriqueTarrio; em_date = jan_2021_04;
+      em_content = (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      em_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val tarrio_after_message : coq_EncryptedMessage **)
+
+  let tarrio_after_message =
+    { em_platform = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), EmptyString)))))))))))))))); em_channel = (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))));
+      em_sender = EnriqueTarrio; em_date =
+      (time_of_day ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        0)))))))))))))))))) 0); em_content = (String ((Ascii (true, false,
+      true, true, false, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      em_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val meggs_qrf_message : coq_EncryptedMessage **)
+
+  let meggs_qrf_message =
+    { em_platform = (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), EmptyString)))))))))))); em_channel = (String ((Ascii
+      (false, false, true, false, false, false, true, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (false, true, false, true, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, false, false)), (String ((Ascii (false, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, false, true, true, false, false)), (String ((Ascii (true,
+      false, false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))); em_sender = KellyMeggs;
+      em_date = jan_2021_05; em_content = (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, false, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, false, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      em_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val watkins_weapons_message : coq_EncryptedMessage **)
+
+  let watkins_weapons_message =
+    { em_platform = (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), EmptyString)))))))))))); em_channel = (String ((Ascii
+      (true, true, true, true, false, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))); em_sender = JessicaWatkins;
+      em_date = jan_2021_04; em_content = (String ((Ascii (true, true, true,
+      false, true, false, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (false, true, true, false, false,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      em_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val conspiracy_messages : coq_EncryptedMessage list **)
+
+  let conspiracy_messages =
+    tarrio_storm_message::(tarrio_after_message::(meggs_qrf_message::(watkins_weapons_message::[])))
+ end
+
+module Communications =
+ struct
+  type coq_CommType =
+  | PhoneCallComm
+  | TextMessage
+  | EncryptedChat
+  | Email
+  | InPersonMeeting
+  | Tweet
+  | PublicStatement
+
+  type coq_Communication = { comm_type : coq_CommType;
+                             comm_timestamp : minute; comm_from : string;
+                             comm_to : string list; comm_summary : string;
+                             comm_docket : string }
+
+  (** val meadows_to_miller_dec6 : coq_Communication **)
+
+  let meadows_to_miller_dec6 =
+    { comm_type = TextMessage; comm_timestamp =
+      PreJan6Conspiracy.dec_2020_06; comm_from = (String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))); comm_to = ((String ((Ascii (true,
+      true, false, false, false, false, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))::[]); comm_summary =
+      (String ((Ascii (true, true, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val eastman_forwarded_chesebro_dec7 : coq_Communication **)
+
+  let eastman_forwarded_chesebro_dec7 =
+    { comm_type = Email; comm_timestamp = PreJan6Conspiracy.dec_2020_07;
+      comm_from = (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), EmptyString))))))))))))))))))))))));
+      comm_to = ((String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      true, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::[]);
+      comm_summary = (String ((Ascii (false, true, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (false, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val trump_call_pence_jan5_1118 : coq_Communication **)
+
+  let trump_call_pence_jan5_1118 =
+    { comm_type = PhoneCallComm; comm_timestamp =
+      (add
+        (time_of_day ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) 0))))))))))) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+          ((fun n -> n + 1) ((fun n -> n + 1) 0)))))))))))))))))))
+        (of_num_uint (UIntDecimal (D4 (D3 (D2 (D0 (D0 Nil))))))));
+      comm_from = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), EmptyString)))))))))))))))))))))))); comm_to =
+      ((String ((Ascii (true, false, true, true, false, false, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), EmptyString))))))))))))))))))))::[]); comm_summary =
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, true, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val trump_call_pence_jan6_1111 : coq_Communication **)
+
+  let trump_call_pence_jan6_1111 =
+    { comm_type = PhoneCallComm; comm_timestamp =
+      (time_of_day ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) 0))))))))))) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) 0)))))))))))); comm_from = (String ((Ascii (false,
+      false, true, false, false, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, false, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))); comm_to = ((String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)),
+      EmptyString))))))))))))))))))))::[]); comm_summary = (String ((Ascii
+      (false, true, true, false, false, false, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, true, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false, true,
+      false, false, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val mccarthy_call_trump_jan6 : coq_Communication **)
+
+  let mccarthy_call_trump_jan6 =
+    { comm_type = PhoneCallComm; comm_timestamp = t_1426; comm_from = (String
+      ((Ascii (true, true, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, false, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))); comm_to = ((String ((Ascii
+      (false, false, true, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))::[]); comm_summary = (String
+      ((Ascii (false, true, false, false, true, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, true, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, true, false, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, false, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, true, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, true, false, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, true, false, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, false, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val tuberville_call_trump_jan6 : coq_Communication **)
+
+  let tuberville_call_trump_jan6 =
+    { comm_type = PhoneCallComm; comm_timestamp = t_1415; comm_from = (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, false, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), EmptyString)))))))))))))))))))))))); comm_to = ((String
+      ((Ascii (false, false, true, false, true, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))::[]); comm_summary =
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, true,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, false, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val cipollone_warning_jan3 : coq_Communication **)
+
+  let cipollone_warning_jan3 =
+    { comm_type = InPersonMeeting; comm_timestamp =
+      (time_of_day ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+        ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) 0)))))))))))) 0);
+      comm_from = (String ((Ascii (false, false, false, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), EmptyString)))))))))))))))))))))))))); comm_to =
+      ((String ((Ascii (false, false, true, false, false, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), EmptyString))))))))))))))))))))))))::((String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))::[])); comm_summary = (String
+      ((Ascii (true, true, true, false, true, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      false, true, false)), (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      true, true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      comm_docket = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, true, false, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      false, false)), (String ((Ascii (true, false, true, true, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, true, true,
+      true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val key_communications : coq_Communication list **)
+
+  let key_communications =
+    meadows_to_miller_dec6::(eastman_forwarded_chesebro_dec7::(trump_call_pence_jan5_1118::(trump_call_pence_jan6_1111::(mccarthy_call_trump_jan6::(tuberville_call_trump_jan6::(cipollone_warning_jan3::[]))))))
+ end
+
+module LegalOutcomes =
+ struct
+  type coq_CaseStatus =
+  | CaseActive
+  | CaseDismissed
+  | CaseConviction
+  | CasePleaDeal
+  | CaseAcquittal
+  | CaseWithdrawn
+  | CaseDisqualified
+
+  type coq_ProsecutingEntity =
+  | DOJ_MainJustice
+  | DOJ_SpecialCounsel
+  | FultonCountyDA
+  | ArizonaAG
+  | MichiganAG
+  | NevadaAG
+  | WisconsinDA
+  | StateBarCalifornia
+  | StateBarNewYork
+  | StateBarColorado
+  | StateBarGeorgia
+
+  type coq_CriminalReferral = { ref_source : string; ref_date : string;
+                                ref_target : string;
+                                ref_charges : string list; ref_result : 
+                                string }
+
+  (** val house_referral_trump : coq_CriminalReferral **)
+
+  let house_referral_trump =
+    { ref_source = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); ref_date =
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, true, true, true, false,
+      false)), EmptyString)))))))))))))))))))); ref_target = (String ((Ascii
+      (false, false, true, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, true, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, false, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), EmptyString)))))))))))))))))))))))))))))); ref_charges =
+      ((String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, true, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, true,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      true, false, false, true, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      true, true, false, false, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, false, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::((String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, true, false, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, false, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::((String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, false, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, false, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, true, false, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::((String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, true, true, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, false, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false, true,
+      false, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::[]))));
+      ref_result = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, true, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val house_referral_eastman : coq_CriminalReferral **)
+
+  let house_referral_eastman =
+    { ref_source = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); ref_date =
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, true, true, true, false,
+      false)), EmptyString)))))))))))))))))))); ref_target = (String ((Ascii
+      (false, true, false, true, false, false, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))); ref_charges = ((String ((Ascii
+      (true, false, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, true, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, true, false, true, false)), (String
+      ((Ascii (true, true, false, false, true, false, true, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, true, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, true,
+      false, false, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, false, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::((String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, true, false, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, false, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))::[]));
+      ref_result = (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val house_referral_meadows : coq_CriminalReferral **)
+
+  let house_referral_meadows =
+    { ref_source = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); ref_date =
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, true, true, true, false,
+      false)), EmptyString)))))))))))))))))))); ref_target = (String ((Ascii
+      (true, false, true, true, false, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))); ref_charges = []; ref_result =
+      (String ((Ascii (false, true, true, true, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val house_referral_giuliani : coq_CriminalReferral **)
+
+  let house_referral_giuliani =
+    { ref_source = (String ((Ascii (false, false, false, true, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); ref_date =
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, true, true, true, false,
+      false)), EmptyString)))))))))))))))))))); ref_target = (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))); ref_charges = []; ref_result =
+      (String ((Ascii (false, true, true, true, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val house_referrals : coq_CriminalReferral list **)
+
+  let house_referrals =
+    house_referral_trump::(house_referral_eastman::(house_referral_meadows::(house_referral_giuliani::[])))
+
+  type coq_FederalCase = { fc_name : string; fc_docket : string;
+                           fc_defendant : string;
+                           fc_prosecutor : coq_ProsecutingEntity;
+                           fc_charges : federalCharge list;
+                           fc_indictment_date : string;
+                           fc_status : coq_CaseStatus; fc_disposition : 
+                           string }
+
+  (** val usa_v_trump_dc : coq_FederalCase **)
+
+  let usa_v_trump_dc =
+    { fc_name = (String ((Ascii (true, false, true, false, true, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); fc_docket =
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, true, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (true, false, true, false, true, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, true,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, false, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false, true,
+      false, false, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (true, false, false,
+      true, false, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))); fc_defendant =
+      (String ((Ascii (false, false, true, false, false, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))); fc_prosecutor =
+      DOJ_SpecialCounsel; fc_charges =
+      (Charge_18USC1512c2::(Charge_18USC371::(Charge_18USC372::[])));
+      fc_indictment_date = (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, true, false, false,
+      true, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, true, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); fc_status = CaseWithdrawn;
+      fc_disposition = (String ((Ascii (true, true, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, true, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, true, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, true, false, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  type coq_StateCase = { sc_name : string; sc_docket : string;
+                         sc_defendant : string;
+                         sc_prosecutor : coq_ProsecutingEntity;
+                         sc_charges_count : int; sc_defendants_count : 
+                         int; sc_indictment_date : string;
+                         sc_status : coq_CaseStatus; sc_disposition : 
+                         string }
+
+  (** val georgia_v_trump : coq_StateCase **)
+
+  let georgia_v_trump =
+    { sc_name = (String ((Ascii (true, true, false, false, true, false, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, false, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      sc_docket = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (true, true, false, false, true, true,
+      false, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, true, true, true,
+      false, false)), (String ((Ascii (false, false, false, true, true, true,
+      false, false)), (String ((Ascii (true, false, false, true, true, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, true,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      sc_defendant = (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false, true,
+      false, false, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, false, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      sc_prosecutor = FultonCountyDA; sc_charges_count = ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))); sc_defendants_count =
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0))))))))))))))))))); sc_indictment_date = (String ((Ascii (false,
+      true, false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); sc_status = CaseDismissed;
+      sc_disposition = (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false, true,
+      true, false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, false, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, true,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  type coq_DisbarmentProceeding = { disbar_attorney : string;
+                                    disbar_bar : coq_ProsecutingEntity;
+                                    disbar_filing_date : string;
+                                    disbar_status : coq_CaseStatus;
+                                    disbar_outcome : string }
+
+  (** val eastman_disbarment : coq_DisbarmentProceeding **)
+
+  let eastman_disbarment =
+    { disbar_attorney = (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), EmptyString))))))))))))))))))))))));
+      disbar_bar = StateBarCalifornia; disbar_filing_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); disbar_status = CaseConviction;
+      disbar_outcome = (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii (true,
+      true, true, false, true, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, true, false, true, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val giuliani_disbarment_ny : coq_DisbarmentProceeding **)
+
+  let giuliani_disbarment_ny =
+    { disbar_attorney = (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), EmptyString))))))))))))))))))))))))));
+      disbar_bar = StateBarNewYork; disbar_filing_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); disbar_status = CaseConviction;
+      disbar_outcome = (String ((Ascii (false, false, true, true, false,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (true, false, false, false, true, true, false, false)), (String ((Ascii
+      (true, true, false, true, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (true, true, true, false, true, true,
+      false, false)), (String ((Ascii (true, false, true, true, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val giuliani_disbarment_dc : coq_DisbarmentProceeding **)
+
+  let giuliani_disbarment_dc =
+    { disbar_attorney = (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), EmptyString))))))))))))))))))))))))));
+      disbar_bar = DOJ_MainJustice; disbar_filing_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, true, true, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, true, false,
+      false)), EmptyString)))))))))))))))))))); disbar_status =
+      CaseConviction; disbar_outcome = (String ((Ascii (false, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, true, false, false, true, false)), (String ((Ascii
+      (true, false, false, true, true, false, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val ellis_disbarment : coq_DisbarmentProceeding **)
+
+  let ellis_disbarment =
+    { disbar_attorney = (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, false, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), EmptyString))))))))))))))))))))));
+      disbar_bar = StateBarColorado; disbar_filing_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, true, true, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, true, true, true, false, false)),
+      EmptyString)))))))))))))))))))); disbar_status = CaseConviction;
+      disbar_outcome = (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, true, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val disbarment_proceedings : coq_DisbarmentProceeding list **)
+
+  let disbarment_proceedings =
+    eastman_disbarment::(giuliani_disbarment_ny::(giuliani_disbarment_dc::(ellis_disbarment::[])))
+
+  type coq_SpecialCounselReport = { scr_counsel : string;
+                                    scr_release_date : string;
+                                    scr_pages : int; scr_conclusion : 
+                                    string; scr_source : string }
+
+  (** val smith_final_report : coq_SpecialCounselReport **)
+
+  let smith_final_report =
+    { scr_counsel = (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), EmptyString))))))))))))))))))));
+      scr_release_date = (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, true, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, true,
+      true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); scr_pages = ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      scr_conclusion = (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, true, true,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      scr_source = (String ((Ascii (false, false, true, false, false, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, true, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, true, false, true, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, true, true,
+      false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+ end
+
+module CausalStructure =
+ struct
+  type coq_CausalRelation =
+  | Enables
+  | Causes
+  | Precedes
+  | Motivates
+  | Facilitates
+  | RespondsTo
+
+  type coq_EventLink = { link_from : eventType; link_to : eventType;
+                         link_relation : coq_CausalRelation;
+                         link_evidence : string }
+
+  (** val speech_enables_march : coq_EventLink **)
+
+  let speech_enables_march =
+    { link_from = SpeechEnds; link_to = BarricadeBreach; link_relation =
+      Enables; link_evidence = (String ((Ascii (false, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      true, true, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, false, false, false, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, true, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val barricade_enables_building_breach : coq_EventLink **)
+
+  let barricade_enables_building_breach =
+    { link_from = BarricadeBreach; link_to = BuildingBreach; link_relation =
+      Enables; link_evidence = (String ((Ascii (false, true, false, false,
+      true, false, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val building_breach_causes_recess : coq_EventLink **)
+
+  let building_breach_causes_recess =
+    { link_from = BuildingBreach; link_to = JointSessionRecesses;
+      link_relation = Causes; link_evidence = (String ((Ascii (false, true,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val breach_causes_evacuation : coq_EventLink **)
+
+  let breach_causes_evacuation =
+    { link_from = BuildingBreach; link_to = Evacuation; link_relation =
+      Causes; link_evidence = (String ((Ascii (false, true, true, false,
+      true, false, true, false)), (String ((Ascii (false, false, false,
+      false, true, false, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, false, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val tweet_motivates_violence : coq_EventLink **)
+
+  let tweet_motivates_violence =
+    { link_from = TweetPosted; link_to = OfficerAssault; link_relation =
+      Motivates; link_evidence = (String ((Ascii (false, false, true, false,
+      true, false, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false, true,
+      false, true, true, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (true, true, false, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val guard_denial_facilitates_breach : coq_EventLink **)
+
+  let guard_denial_facilitates_breach =
+    { link_from = GuardDenied; link_to = PoliceLineCollapse; link_relation =
+      Facilitates; link_evidence = (String ((Ascii (false, false, true, true,
+      false, false, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, true,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val causal_links : coq_EventLink list **)
+
+  let causal_links =
+    speech_enables_march::(barricade_enables_building_breach::(building_breach_causes_recess::(breach_causes_evacuation::(tweet_motivates_violence::(guard_denial_facilitates_breach::[])))))
+
+  type coq_CrowdEstimate = { ce_location : dCLocation; ce_time : minute;
+                             ce_count_low : int; ce_count_high : int;
+                             ce_source : string }
+
+  (** val ellipse_rally_crowd : coq_CrowdEstimate **)
+
+  let ellipse_rally_crowd =
+    { ce_location = WhiteHouseEllipse; ce_time = t_1200; ce_count_low =
+      (of_num_uint (UIntDecimal (D1 (D0 (D0 (D0 (D0 Nil)))))));
+      ce_count_high =
+      (of_num_uint (UIntDecimal (D1 (D5 (D0 (D0 (D0 Nil))))))); ce_source =
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, true, false, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val capitol_grounds_crowd : coq_CrowdEstimate **)
+
+  let capitol_grounds_crowd =
+    { ce_location = CapitolGrounds; ce_time = t_1400; ce_count_low =
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      ce_count_high = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      ce_source = (String ((Ascii (true, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, true, false,
+      true, false)), (String ((Ascii (true, true, false, false, false, false,
+      true, false)), (String ((Ascii (false, false, false, false, true,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val inside_building_crowd : coq_CrowdEstimate **)
+
+  let inside_building_crowd =
+    { ce_location = (CapitolBuilding Rotunda); ce_time = t_1430;
+      ce_count_low = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      ce_count_high = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      ce_source = (String ((Ascii (false, true, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val crowd_estimates : coq_CrowdEstimate list **)
+
+  let crowd_estimates =
+    ellipse_rally_crowd::(capitol_grounds_crowd::(inside_building_crowd::[]))
+
+  type coq_WeaponEvidence = { we_type : string; we_count : int;
+                              we_location : dCLocation; we_seized : bool;
+                              we_source : string }
+
+  (** val flagpoles : coq_WeaponEvidence **)
+
+  let flagpoles =
+    { we_type = (String ((Ascii (false, true, true, false, false, false,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))));
+      we_count = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1)
+      0))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      we_location = CapitolGrounds; we_seized = false; we_source = (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, true, false, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), EmptyString)))))))))))))))))))))))))))))))))))))))) }
+
+  (** val bear_spray : coq_WeaponEvidence **)
+
+  let bear_spray =
+    { we_type = (String ((Ascii (false, true, false, false, false, false,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      we_count = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      0)))))))))))))))))))))))))))))))))))))))))))))))))); we_location =
+      (CapitolBuilding WestFront); we_seized = true; we_source = (String
+      ((Ascii (true, false, true, false, true, false, true, false)), (String
+      ((Ascii (true, true, false, false, true, false, true, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, true, false, false, true,
+      true, false)), EmptyString)))))))))))))))))))))))))))))))))) }
+
+  (** val tasers : coq_WeaponEvidence **)
+
+  let tasers =
+    { we_type = (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), EmptyString))))))))))))))))))))))))))))))));
+      we_count = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) 0)))))))))))); we_location = CapitolGrounds;
+      we_seized = true; we_source = (String ((Ascii (false, false, true,
+      false, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, false, true, false)), (String ((Ascii (false, true, false,
+      true, false, false, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))) }
+
+  (** val baseball_bats : coq_WeaponEvidence **)
+
+  let baseball_bats =
+    { we_type = (String ((Ascii (false, true, false, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, true, true, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), EmptyString))))))))))))))))))))))))));
+      we_count = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) 0)))))))); we_location = (CapitolBuilding WestFront);
+      we_seized = true; we_source = (String ((Ascii (false, true, true,
+      false, true, false, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, false, true, false)), (String ((Ascii (false,
+      true, false, true, false, false, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))) }
+
+  (** val knives : coq_WeaponEvidence **)
+
+  let knives =
+    { we_type = (String ((Ascii (true, true, false, true, false, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), EmptyString)))))))))))); we_count = ((fun n -> n + 1)
+      ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1)
+      ((fun n -> n + 1) 0)))))); we_location = CapitolGrounds; we_seized =
+      true; we_source = (String ((Ascii (true, false, true, false, true,
+      false, true, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      true, false, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))) }
+
+  (** val firearms_seized : coq_WeaponEvidence **)
+
+  let firearms_seized =
+    { we_type = (String ((Ascii (false, true, true, false, false, false,
+      true, false)), (String ((Ascii (true, false, false, true, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, true, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, false, true,
+      false, true, false, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      we_count = ((fun n -> n + 1) ((fun n -> n + 1) ((fun n -> n + 1) 0)));
+      we_location = CapitolGrounds; we_seized = true; we_source = (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, true, false, true, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, true, true, false, true,
+      true, false)), (String ((Ascii (false, true, false, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, true, true,
+      true, false)), (String ((Ascii (true, true, false, true, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, true,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val weapons_evidence : coq_WeaponEvidence list **)
+
+  let weapons_evidence =
+    flagpoles::(bear_spray::(tasers::(baseball_bats::(knives::(firearms_seized::[])))))
+ end
+
+module Sources =
+ struct
+  type coq_SourceType =
+  | CongressionalRecord
+  | CourtFiling
+  | CourtTranscript
+  | JudicialOpinion
+  | OfficialReport
+  | VideoEvidence
+  | AudioRecording
+  | WitnessTestimony
+  | DocumentaryEvidence
+  | NewsReport
+
+  type coq_Source = { src_type : coq_SourceType; src_title : string;
+                      src_identifier : string; src_date : string;
+                      src_url : string option }
+
+  (** val src_house_final_report : coq_Source **)
+
+  let src_house_final_report =
+    { src_type = OfficialReport; src_title = (String ((Ascii (false, true,
+      true, false, false, false, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, false, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, true, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, false, false,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (true, false, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, false, false, true,
+      true, false)), (String ((Ascii (true, true, false, true, false, true,
+      true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (false, false, false, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))); src_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); src_url = (None (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, true, true, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, false, false, true, false)), (String ((Ascii
+      (false, false, false, false, true, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, false, true, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, true, false, true, false, false, true, false)), (String
+      ((Ascii (false, true, true, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, false, true, false)), (String
+      ((Ascii (false, false, false, false, true, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, true, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, false, true, false, true,
+      false)), (String ((Ascii (true, true, true, true, false, false, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, false, true,
+      false)), (String ((Ascii (false, true, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, true, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, false, true,
+      false)), (String ((Ascii (false, false, false, false, true, false,
+      true, false)), (String ((Ascii (true, true, true, true, false, false,
+      true, false)), (String ((Ascii (false, true, false, false, true, false,
+      true, false)), (String ((Ascii (false, false, true, false, true, false,
+      true, false)), (String ((Ascii (false, true, true, true, false, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, false,
+      true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_rhodes_indictment : coq_Source **)
+
+  let src_rhodes_indictment =
+    { src_type = CourtFiling; src_title = (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, false, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (true, true, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, false,
+      false, true, false, false, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, true, false, true, false)), (String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, false, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, true, true, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = (None (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, true, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, true, true, true, false, false)), (String ((Ascii (true,
+      true, false, false, true, true, false, false)), (String ((Ascii (true,
+      false, false, false, true, true, false, false)), (String ((Ascii (true,
+      true, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_tarrio_indictment : coq_Source **)
+
+  let src_tarrio_indictment =
+    { src_type = CourtFiling; src_title = (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, false, true, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (false, false,
+      true, false, true, false, true, false)), (String ((Ascii (false, true,
+      false, true, false, false, true, false)), (String ((Ascii (true, true,
+      false, true, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, false, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, true, true, false,
+      true, true, false, false)), EmptyString)))))))))))))))))))); src_url =
+      (None (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, true, false, true, true, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, false, true, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (false, true, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, true, true, true, false,
+      false)), (String ((Ascii (false, true, true, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_trump_indictment : coq_Source **)
+
+  let src_trump_indictment =
+    { src_type = CourtFiling; src_title = (String ((Ascii (true, false, true,
+      false, true, false, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, false, true, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (true, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, true, false,
+      false, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      false, true, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, false, true, false)), (String ((Ascii (true, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, true, false,
+      false, false, false, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, true, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, false, false, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, true, false, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, false, false, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (false, false, true, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, false, true,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = (None (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, true, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      false, true, false)), (String ((Ascii (true, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (false, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (false, false, true, false, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, false, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, true,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_doj_ig_guard : coq_Source **)
+
+  let src_doj_ig_guard =
+    { src_type = OfficialReport; src_title = (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, true, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, false, false, false, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, false, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, true, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      true, false)), (String ((Ascii (false, false, false, true, false, true,
+      true, false)), (String ((Ascii (true, false, true, false, false, true,
+      true, false)), (String ((Ascii (false, false, false, false, false,
+      true, false, false)), (String ((Ascii (false, false, true, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      false, false, true, false)), (String ((Ascii (true, true, true, false,
+      false, true, false, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (false,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, true, false, true, false, false, true, false)), (String
+      ((Ascii (true, false, false, false, false, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, false, false, false, true,
+      false)), (String ((Ascii (false, true, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, true, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, true, false, false, true, true, true,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      false, true, false)), (String ((Ascii (false, false, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, false, true,
+      false, false, true, false)), (String ((Ascii (true, true, true, false,
+      false, false, true, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, true, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, true, false, false)), (String ((Ascii (true, false,
+      true, true, false, true, false, false)), (String ((Ascii (true, false,
+      false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii (true,
+      false, true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))); src_date = (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, true, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))); src_url = (None (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, true, false, true, true, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, true, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, false, false, false, false, false, true, false)), (String
+      ((Ascii (false, true, false, false, true, true, true, false)), (String
+      ((Ascii (false, false, true, false, true, true, true, false)), (String
+      ((Ascii (true, false, false, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, true, true, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, true, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, true, false, true, true, false, false)), (String
+      ((Ascii (true, true, true, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_dc_ocme_babbitt : coq_Source **)
+
+  let src_dc_ocme_babbitt =
+    { src_type = OfficialReport; src_title = (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (true, true,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, false, false,
+      false, true, false)), (String ((Ascii (false, false, false, true, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, false, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      true, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, true, false, false, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      false, false)), (String ((Ascii (true, false, false, false, true, true,
+      false, false)), EmptyString))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, true, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = Some }
+
+  (** val src_dc_ocme_sicknick : coq_Source **)
+
+  let src_dc_ocme_sicknick =
+    { src_type = OfficialReport; src_title = (String ((Ascii (false, false,
+      true, false, false, false, true, false)), (String ((Ascii (true, true,
+      false, false, false, false, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (false, true, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, false, true,
+      false)), (String ((Ascii (true, false, true, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (true, true, false, false, false, true, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, true, false, false,
+      false, true, false)), (String ((Ascii (false, false, false, true, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (false, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, false, false, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true,
+      false, false, true, false, true, false)), (String ((Ascii (true, false,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (true, true, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (false, true, true,
+      true, false, false, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, false, true, false)), (String ((Ascii (true,
+      false, true, false, false, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, false, false)), (String ((Ascii
+      (false, false, false, false, true, true, false, false)), (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, false, false, true, true, false, false)), (String
+      ((Ascii (true, false, true, true, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, true, false, true, true,
+      false, false)), (String ((Ascii (true, false, true, false, true, true,
+      false, false)), EmptyString))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (false, false, true, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (true, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, false, false,
+      true, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = Some }
+
+  (** val src_cspan_rally : coq_Source **)
+
+  let src_cspan_rally =
+    { src_type = VideoEvidence; src_title = (String ((Ascii (true, true,
+      false, false, false, false, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, false, false)), (String ((Ascii (true,
+      true, false, false, true, false, true, false)), (String ((Ascii (false,
+      false, false, false, true, false, true, false)), (String ((Ascii (true,
+      false, false, false, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, false, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, false, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, false, true,
+      false)), (String ((Ascii (false, true, false, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, false, true, true, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, false, false, true,
+      false, true, false)), (String ((Ascii (true, false, false, false,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      true, true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, false, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, true, false, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)), (String ((Ascii
+      (true, true, false, false, false, false, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (false, true, true, false, true,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, false, false, true,
+      false, false, true, false)), (String ((Ascii (false, false, true,
+      false, false, false, true, false)), (String ((Ascii (false, true,
+      false, true, true, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true,
+      false, true, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, true, false, false)), (String ((Ascii (true,
+      true, true, false, true, true, false, false)), (String ((Ascii (true,
+      true, true, false, true, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, false, false)), (String ((Ascii (false,
+      false, true, false, true, true, false, false)), (String ((Ascii (true,
+      false, true, true, false, true, false, false)), (String ((Ascii (true,
+      false, false, false, true, true, false, false)),
+      EmptyString)))))))))))))))))))))))))))))))))))); src_date = (String
+      ((Ascii (false, true, false, false, true, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, true, false, false)),
+      (String ((Ascii (false, true, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, false, false, true, true, false, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, true, true,
+      false, false)), (String ((Ascii (false, true, true, false, true, true,
+      false, false)), EmptyString)))))))))))))))))))); src_url = (None
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, true, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, true, false, true, true, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, false, true, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, false, false, true, true, true, false)),
+      (String ((Ascii (false, false, false, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, false, false, true, true, true, false)),
+      (String ((Ascii (true, true, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (false, true, true, false, true, true, true, false)),
+      (String ((Ascii (true, false, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, false, false)),
+      (String ((Ascii (true, true, true, true, true, true, false, false)),
+      (String ((Ascii (true, false, true, false, true, true, false, false)),
+      (String ((Ascii (false, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, false, true, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, false,
+      false)), (String ((Ascii (false, false, true, false, true, true, false,
+      false)), (String ((Ascii (true, false, true, true, false, true, false,
+      false)), (String ((Ascii (true, false, false, false, true, true, false,
+      false)), (String ((Ascii (true, true, true, true, false, true, false,
+      false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_wapo_georgia_audio : coq_Source **)
+
+  let src_wapo_georgia_audio =
+    { src_type = AudioRecording; src_title = (String ((Ascii (true, true,
+      true, false, true, false, true, false)), (String ((Ascii (true, false,
+      false, false, false, true, true, false)), (String ((Ascii (true, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, true, false, true, true, false)), (String ((Ascii (true, false,
+      false, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (true, true,
+      true, false, false, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, true, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, false, true, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (false, false, true, false, true, false, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, true, false, true, false, false)), (String ((Ascii
+      (false, true, false, false, true, false, true, false)), (String ((Ascii
+      (true, false, false, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (true, true, true, false, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (false, true, false, false, true, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (false, false, false, false, true, false, true, false)),
+      (String ((Ascii (false, false, false, true, false, true, true, false)),
+      (String ((Ascii (true, true, true, true, false, true, true, false)),
+      (String ((Ascii (false, true, true, true, false, true, true, false)),
+      (String ((Ascii (true, false, true, false, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, false, false, true,
+      false)), (String ((Ascii (true, false, false, false, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, true,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (true, false, false, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (false, true, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, true, true, false, false)), (String ((Ascii (false,
+      true, false, false, true, true, false, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, false, true, false, true, true, false)), (String ((Ascii
+      (false, true, true, true, false, true, true, false)), (String ((Ascii
+      (true, false, true, false, true, true, true, false)), (String ((Ascii
+      (false, false, true, false, true, true, true, false)), (String ((Ascii
+      (true, false, true, false, false, true, true, false)), (String ((Ascii
+      (true, true, false, false, true, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, true, false,
+      false, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = (None (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, true, false, true, true,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, true, false, true,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, false, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false, true,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, false, false, true,
+      true, true, false)), (String ((Ascii (false, false, true, false, true,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, false, false)), (String ((Ascii (true, true, false, false, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, true, true, false,
+      true, true, false)), (String ((Ascii (true, true, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, true,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (false, false, true, false,
+      true, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      true, true, true, false)), (String ((Ascii (true, true, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      true, false, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, true,
+      true, false, true, true, false)), (String ((Ascii (true, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, false,
+      false, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (false, false, false,
+      false, true, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, false,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      false, false, true, true, false)), (String ((Ascii (true, false, false,
+      true, false, true, true, false)), (String ((Ascii (true, false, false,
+      false, false, true, true, false)), (String ((Ascii (true, false, true,
+      true, false, true, false, false)), (String ((Ascii (false, true, true,
+      false, true, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, false, true,
+      false, true, true, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (true, true, true,
+      true, false, true, false, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) }
+
+  (** val src_smith_final_report : coq_Source **)
+
+  let src_smith_final_report =
+    { src_type = OfficialReport; src_title = (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)), (String
+      ((Ascii (false, false, false, false, false, true, false, false)),
+      (String ((Ascii (false, true, false, true, false, false, true, false)),
+      (String ((Ascii (true, false, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, false, false, true, true, false)),
+      (String ((Ascii (true, true, false, true, false, true, true, false)),
+      (String ((Ascii (false, false, false, false, false, true, false,
+      false)), (String ((Ascii (true, true, false, false, true, false, true,
+      false)), (String ((Ascii (true, false, true, true, false, true, true,
+      false)), (String ((Ascii (true, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, false, true, true, true,
+      false)), (String ((Ascii (false, false, false, true, false, true, true,
+      false)), (String ((Ascii (false, false, true, true, false, true, false,
+      false)), (String ((Ascii (false, false, false, false, false, true,
+      false, false)), (String ((Ascii (false, true, true, false, false,
+      false, true, false)), (String ((Ascii (true, false, false, true, false,
+      true, true, false)), (String ((Ascii (false, true, true, true, false,
+      true, true, false)), (String ((Ascii (true, false, false, false, false,
+      true, true, false)), (String ((Ascii (false, false, true, true, false,
+      true, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (false, true, false,
+      false, true, false, true, false)), (String ((Ascii (true, false, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, true, true, true, false)), (String ((Ascii (true, true,
+      true, true, false, true, true, false)), (String ((Ascii (false, true,
+      false, false, true, true, true, false)), (String ((Ascii (false, false,
+      true, false, true, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (false,
+      true, true, false, true, false, true, false)), (String ((Ascii (true,
+      true, true, true, false, true, true, false)), (String ((Ascii (false,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, true, false, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (false,
+      false, false, false, false, true, false, false)), (String ((Ascii
+      (true, false, false, true, false, false, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_identifier = (String ((Ascii (false, false, true, false, false,
+      false, true, false)), (String ((Ascii (true, true, true, true, false,
+      false, true, false)), (String ((Ascii (false, true, false, true, false,
+      false, true, false)), (String ((Ascii (false, false, false, false,
+      false, true, false, false)), (String ((Ascii (true, true, true, true,
+      false, false, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (false, true, true, false,
+      false, true, true, false)), (String ((Ascii (true, false, false, true,
+      false, true, true, false)), (String ((Ascii (true, true, false, false,
+      false, true, true, false)), (String ((Ascii (true, false, true, false,
+      false, true, true, false)), (String ((Ascii (false, false, false,
+      false, false, true, false, false)), (String ((Ascii (true, true, true,
+      true, false, true, true, false)), (String ((Ascii (false, true, true,
+      false, false, true, true, false)), (String ((Ascii (false, false,
+      false, false, false, true, false, false)), (String ((Ascii (true, true,
+      false, false, true, false, true, false)), (String ((Ascii (false,
+      false, false, false, true, true, true, false)), (String ((Ascii (true,
+      false, true, false, false, true, true, false)), (String ((Ascii (true,
+      true, false, false, false, true, true, false)), (String ((Ascii (true,
+      false, false, true, false, true, true, false)), (String ((Ascii (true,
+      false, false, false, false, true, true, false)), (String ((Ascii
+      (false, false, true, true, false, true, true, false)), (String ((Ascii
+      (false, false, false, false, false, true, false, false)), (String
+      ((Ascii (true, true, false, false, false, false, true, false)), (String
+      ((Ascii (true, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, false, true, false, true, true, true, false)), (String
+      ((Ascii (false, true, true, true, false, true, true, false)), (String
+      ((Ascii (true, true, false, false, true, true, true, false)), (String
+      ((Ascii (true, false, true, false, false, true, true, false)), (String
+      ((Ascii (false, false, true, true, false, true, true, false)),
+      EmptyString))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+      src_date = (String ((Ascii (false, true, false, false, true, true,
+      false, false)), (String ((Ascii (false, false, false, false, true,
+      true, false, false)), (String ((Ascii (false, true, false, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, false, true,
+      true, false, false)), (String ((Ascii (true, false, true, true, false,
+      true, false, false)), (String ((Ascii (false, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, false, false,
+      true, true, false, false)), (String ((Ascii (true, false, true, true,
+      false, true, false, false)), (String ((Ascii (false, false, false,
+      false, true, true, false, false)), (String ((Ascii (true, true, true,
+      false, true, true, false, false)), EmptyString))))))))))))))))))));
+      src_url = Some }
+
+  (** val primary_sources : coq_Source list **)
+
+  let primary_sources =
+    src_house_final_report::(src_rhodes_indictment::(src_tarrio_indictment::(src_trump_indictment::(src_doj_ig_guard::(src_dc_ocme_babbitt::(src_dc_ocme_sicknick::(src_cspan_rally::(src_wapo_georgia_audio::(src_smith_final_report::[])))))))))
+ end
