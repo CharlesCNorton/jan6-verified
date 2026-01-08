@@ -1,0 +1,915 @@
+DIGEST a0fbf46f2762b4e6de7dc938ce9034c2
+FJan6
+R1556:1560 Coq.Arith.Arith <> <> lib
+R1578:1581 Coq.Lists.List <> <> lib
+R1599:1604 Coq.Strings.String <> <> lib
+R1614:1626 Coq.Lists.List ListNotations <> mod
+def 1664:1669 <> Minute
+R1674:1676 Coq.Init.Datatypes <> nat ind
+ind 1690:1697 <> Location
+constr 1711:1717 <> Ellipse
+constr 1735:1743 <> WestFront
+constr 1761:1776 <> LowerWestTerrace
+constr 1794:1815 <> LowerWestTerraceTunnel
+constr 1833:1845 <> SenateChamber
+constr 1863:1874 <> HouseChamber
+constr 1892:1898 <> Rotunda
+constr 1916:1925 <> CryptLevel
+constr 1943:1954 <> SpeakerLobby
+constr 1972:1983 <> StatuaryHall
+constr 2001:2014 <> NorthBarricade
+constr 2032:2040 <> EastFront
+constr 2058:2065 <> Pentagon
+constr 2083:2091 <> DCArsenal
+R1721:1728 Jan6 <> Location:1 ind
+R1747:1754 Jan6 <> Location:1 ind
+R1780:1787 Jan6 <> Location:1 ind
+R1819:1826 Jan6 <> Location:1 ind
+R1849:1856 Jan6 <> Location:1 ind
+R1878:1885 Jan6 <> Location:1 ind
+R1902:1909 Jan6 <> Location:1 ind
+R1929:1936 Jan6 <> Location:1 ind
+R1958:1965 Jan6 <> Location:1 ind
+R1987:1994 Jan6 <> Location:1 ind
+R2018:2025 Jan6 <> Location:1 ind
+R2044:2051 Jan6 <> Location:1 ind
+R2069:2076 Jan6 <> Location:1 ind
+R2095:2102 Jan6 <> Location:1 ind
+scheme 1690:1697 <> Location_rect
+scheme 1690:1697 <> Location_ind
+scheme 1690:1697 <> Location_rec
+scheme 1690:1697 <> Location_sind
+ind 2116:2128 <> ActorCategory
+constr 2142:2147 <> Rioter
+constr 2170:2182 <> CapitolPolice
+constr 2205:2222 <> MetropolitanPolice
+constr 2245:2257 <> SecretService
+constr 2280:2292 <> NationalGuard
+constr 2315:2329 <> ElectedOfficial
+constr 2352:2366 <> ExecutiveBranch
+R2151:2163 Jan6 <> ActorCategory:3 ind
+R2186:2198 Jan6 <> ActorCategory:3 ind
+R2226:2238 Jan6 <> ActorCategory:3 ind
+R2261:2273 Jan6 <> ActorCategory:3 ind
+R2296:2308 Jan6 <> ActorCategory:3 ind
+R2333:2345 Jan6 <> ActorCategory:3 ind
+R2370:2382 Jan6 <> ActorCategory:3 ind
+scheme 2116:2128 <> ActorCategory_rect
+scheme 2116:2128 <> ActorCategory_ind
+scheme 2116:2128 <> ActorCategory_rec
+scheme 2116:2128 <> ActorCategory_sind
+ind 2396:2400 <> Group
+constr 2414:2424 <> OathKeepers
+constr 2439:2447 <> ProudBoys
+constr 2462:2476 <> ThreePercenters
+constr 2491:2503 <> NoAffiliation
+R2428:2432 Jan6 <> Group:5 ind
+R2451:2455 Jan6 <> Group:5 ind
+R2480:2484 Jan6 <> Group:5 ind
+R2507:2511 Jan6 <> Group:5 ind
+scheme 2396:2400 <> Group_rect
+scheme 2396:2400 <> Group_ind
+scheme 2396:2400 <> Group_rec
+scheme 2396:2400 <> Group_sind
+ind 2525:2534 <> NamedActor
+constr 2548:2560 <> StewartRhodes
+constr 2580:2592 <> EnriqueTarrio
+constr 2612:2625 <> DominicPezzola
+constr 2645:2656 <> EthanNordean
+constr 2676:2686 <> JosephBiggs
+constr 2706:2716 <> ZacharyRehl
+constr 2736:2745 <> KellyMeggs
+constr 2765:2773 <> MikePence
+constr 2793:2803 <> DonaldTrump
+constr 2823:2833 <> NancyPelosi
+constr 2853:2864 <> ChuckSchumer
+constr 2884:2897 <> MitchMcConnell
+constr 2917:2929 <> KevinMcCarthy
+constr 2949:2958 <> MittRomney
+constr 2978:2987 <> StevenSund
+constr 3007:3019 <> EugeneGoodman
+constr 3039:3051 <> MichaelFanone
+constr 3071:3082 <> DanielHodges
+constr 3102:3115 <> AquilinoGonell
+constr 3135:3151 <> ChristopherMiller
+constr 3171:3182 <> RyanMcCarthy
+constr 3202:3214 <> WilliamWalker
+constr 3234:3243 <> MarkMilley
+constr 3263:3274 <> AshliBabbitt
+R2564:2573 Jan6 <> NamedActor:7 ind
+R2596:2605 Jan6 <> NamedActor:7 ind
+R2629:2638 Jan6 <> NamedActor:7 ind
+R2660:2669 Jan6 <> NamedActor:7 ind
+R2690:2699 Jan6 <> NamedActor:7 ind
+R2720:2729 Jan6 <> NamedActor:7 ind
+R2749:2758 Jan6 <> NamedActor:7 ind
+R2777:2786 Jan6 <> NamedActor:7 ind
+R2807:2816 Jan6 <> NamedActor:7 ind
+R2837:2846 Jan6 <> NamedActor:7 ind
+R2868:2877 Jan6 <> NamedActor:7 ind
+R2901:2910 Jan6 <> NamedActor:7 ind
+R2933:2942 Jan6 <> NamedActor:7 ind
+R2962:2971 Jan6 <> NamedActor:7 ind
+R2991:3000 Jan6 <> NamedActor:7 ind
+R3023:3032 Jan6 <> NamedActor:7 ind
+R3055:3064 Jan6 <> NamedActor:7 ind
+R3086:3095 Jan6 <> NamedActor:7 ind
+R3119:3128 Jan6 <> NamedActor:7 ind
+R3155:3164 Jan6 <> NamedActor:7 ind
+R3186:3195 Jan6 <> NamedActor:7 ind
+R3218:3227 Jan6 <> NamedActor:7 ind
+R3247:3256 Jan6 <> NamedActor:7 ind
+R3278:3287 Jan6 <> NamedActor:7 ind
+scheme 2525:2534 <> NamedActor_rect
+scheme 2525:2534 <> NamedActor_ind
+scheme 2525:2534 <> NamedActor_rec
+scheme 2525:2534 <> NamedActor_sind
+ind 3301:3309 <> EventType
+constr 3323:3333 <> RallyBegins
+constr 3352:3363 <> SpeechBegins
+constr 3382:3391 <> SpeechEnds
+constr 3410:3423 <> MarchToCapitol
+constr 3442:3456 <> BarricadeBreach
+constr 3475:3486 <> WindowBreach
+constr 3505:3518 <> BuildingBreach
+constr 3537:3548 <> RiotDeclared
+constr 3567:3581 <> SessionConvenes
+constr 3600:3614 <> SessionRecesses
+constr 3633:3646 <> SessionResumes
+constr 3665:3685 <> CertificationComplete
+constr 3704:3713 <> Evacuation
+constr 3732:3745 <> OfficerAssault
+constr 3764:3774 <> TunnelCrush
+constr 3793:3800 <> Shooting
+constr 3819:3823 <> Death
+constr 3842:3855 <> GuardRequested
+constr 3874:3888 <> GuardAuthorized
+constr 3907:3918 <> GuardDeploys
+constr 3937:3950 <> CapitolSecured
+R3337:3345 Jan6 <> EventType:9 ind
+R3367:3375 Jan6 <> EventType:9 ind
+R3395:3403 Jan6 <> EventType:9 ind
+R3427:3435 Jan6 <> EventType:9 ind
+R3460:3468 Jan6 <> EventType:9 ind
+R3490:3498 Jan6 <> EventType:9 ind
+R3522:3530 Jan6 <> EventType:9 ind
+R3552:3560 Jan6 <> EventType:9 ind
+R3585:3593 Jan6 <> EventType:9 ind
+R3618:3626 Jan6 <> EventType:9 ind
+R3650:3658 Jan6 <> EventType:9 ind
+R3689:3697 Jan6 <> EventType:9 ind
+R3717:3725 Jan6 <> EventType:9 ind
+R3749:3757 Jan6 <> EventType:9 ind
+R3778:3786 Jan6 <> EventType:9 ind
+R3804:3812 Jan6 <> EventType:9 ind
+R3827:3835 Jan6 <> EventType:9 ind
+R3859:3867 Jan6 <> EventType:9 ind
+R3892:3900 Jan6 <> EventType:9 ind
+R3922:3930 Jan6 <> EventType:9 ind
+R3954:3962 Jan6 <> EventType:9 ind
+scheme 3301:3309 <> EventType_rect
+scheme 3301:3309 <> EventType_ind
+scheme 3301:3309 <> EventType_rec
+scheme 3301:3309 <> EventType_sind
+rec 3973:3977 <> Event
+proj 4008:4017 <> event_time
+proj 4037:4046 <> event_type
+proj 4069:4082 <> event_location
+R4021:4026 Jan6 <> Minute def
+R4050:4058 Jan6 <> EventType ind
+R4086:4093 Jan6 <> Location ind
+def 4117:4129 <> time_12_00_PM
+R4133:4138 Jan6 <> Minute def
+def 4159:4171 <> time_01_00_PM
+R4175:4180 Jan6 <> Minute def
+def 4201:4213 <> time_01_10_PM
+R4217:4222 Jan6 <> Minute def
+def 4243:4255 <> time_01_49_PM
+R4259:4264 Jan6 <> Minute def
+def 4285:4297 <> time_01_50_PM
+R4301:4306 Jan6 <> Minute def
+def 4327:4339 <> time_01_58_PM
+R4343:4348 Jan6 <> Minute def
+def 4369:4381 <> time_02_11_PM
+R4385:4390 Jan6 <> Minute def
+def 4411:4423 <> time_02_13_PM
+R4427:4432 Jan6 <> Minute def
+def 4453:4465 <> time_02_24_PM
+R4469:4474 Jan6 <> Minute def
+def 4495:4507 <> time_02_35_PM
+R4511:4516 Jan6 <> Minute def
+def 4537:4549 <> time_03_15_PM
+R4553:4558 Jan6 <> Minute def
+def 4579:4591 <> time_03_21_PM
+R4595:4600 Jan6 <> Minute def
+def 4621:4633 <> time_04_32_PM
+R4637:4642 Jan6 <> Minute def
+def 4663:4675 <> time_05_20_PM
+R4679:4684 Jan6 <> Minute def
+def 4706:4718 <> time_06_00_PM
+R4722:4727 Jan6 <> Minute def
+def 4749:4761 <> time_08_00_PM
+R4765:4770 Jan6 <> Minute def
+def 4792:4809 <> time_03_40_AM_next
+R4813:4818 Jan6 <> Minute def
+def 4841:4858 <> event_rally_begins
+R4862:4866 Jan6 <> Event rec
+R4873:4879 Jan6 <> mkEvent constr
+R4881:4893 Jan6 <> time_12_00_PM def
+R4895:4905 Jan6 <> RallyBegins constr
+R4907:4913 Jan6 <> Ellipse constr
+def 4928:4950 <> event_trump_speech_ends
+R4954:4958 Jan6 <> Event rec
+R4965:4971 Jan6 <> mkEvent constr
+R4973:4985 Jan6 <> time_01_10_PM def
+R4987:4996 Jan6 <> SpeechEnds constr
+R4998:5004 Jan6 <> Ellipse constr
+def 5019:5040 <> event_session_convenes
+R5044:5048 Jan6 <> Event rec
+R5055:5061 Jan6 <> mkEvent constr
+R5063:5075 Jan6 <> time_01_00_PM def
+R5077:5091 Jan6 <> SessionConvenes constr
+R5093:5104 Jan6 <> HouseChamber constr
+def 5119:5137 <> event_riot_declared
+R5141:5145 Jan6 <> Event rec
+R5152:5158 Jan6 <> mkEvent constr
+R5160:5172 Jan6 <> time_01_50_PM def
+R5174:5185 Jan6 <> RiotDeclared constr
+R5187:5195 Jan6 <> WestFront constr
+def 5210:5231 <> event_barricade_breach
+R5235:5239 Jan6 <> Event rec
+R5246:5252 Jan6 <> mkEvent constr
+R5254:5266 Jan6 <> time_01_58_PM def
+R5268:5282 Jan6 <> BarricadeBreach constr
+R5284:5297 Jan6 <> NorthBarricade constr
+def 5312:5330 <> event_window_breach
+R5334:5338 Jan6 <> Event rec
+R5345:5351 Jan6 <> mkEvent constr
+R5353:5365 Jan6 <> time_02_11_PM def
+R5367:5378 Jan6 <> WindowBreach constr
+R5380:5388 Jan6 <> WestFront constr
+def 5403:5423 <> event_building_breach
+R5427:5431 Jan6 <> Event rec
+R5438:5444 Jan6 <> mkEvent constr
+R5446:5458 Jan6 <> time_02_13_PM def
+R5460:5473 Jan6 <> BuildingBreach constr
+R5475:5483 Jan6 <> WestFront constr
+def 5498:5518 <> event_pence_evacuated
+R5522:5526 Jan6 <> Event rec
+R5533:5539 Jan6 <> mkEvent constr
+R5541:5553 Jan6 <> time_02_13_PM def
+R5555:5564 Jan6 <> Evacuation constr
+R5566:5578 Jan6 <> SenateChamber constr
+def 5593:5610 <> event_babbitt_shot
+R5614:5618 Jan6 <> Event rec
+R5625:5631 Jan6 <> mkEvent constr
+R5633:5645 Jan6 <> time_02_35_PM def
+R5647:5654 Jan6 <> Shooting constr
+R5656:5667 Jan6 <> SpeakerLobby constr
+def 5682:5701 <> event_hodges_crushed
+R5705:5709 Jan6 <> Event rec
+R5716:5722 Jan6 <> mkEvent constr
+R5724:5736 Jan6 <> time_03_15_PM def
+R5738:5748 Jan6 <> TunnelCrush constr
+R5750:5771 Jan6 <> LowerWestTerraceTunnel constr
+def 5786:5805 <> event_fanone_assault
+R5809:5813 Jan6 <> Event rec
+R5820:5826 Jan6 <> mkEvent constr
+R5828:5840 Jan6 <> time_03_21_PM def
+R5842:5855 Jan6 <> OfficerAssault constr
+R5857:5878 Jan6 <> LowerWestTerraceTunnel constr
+def 5893:5913 <> event_guard_requested
+R5917:5921 Jan6 <> Event rec
+R5928:5934 Jan6 <> mkEvent constr
+R5936:5948 Jan6 <> time_01_49_PM def
+R5950:5963 Jan6 <> GuardRequested constr
+R5965:5972 Jan6 <> Pentagon constr
+def 5987:6008 <> event_guard_authorized
+R6012:6016 Jan6 <> Event rec
+R6023:6029 Jan6 <> mkEvent constr
+R6031:6043 Jan6 <> time_04_32_PM def
+R6045:6059 Jan6 <> GuardAuthorized constr
+R6061:6068 Jan6 <> Pentagon constr
+def 6083:6101 <> event_guard_deploys
+R6105:6109 Jan6 <> Event rec
+R6116:6122 Jan6 <> mkEvent constr
+R6124:6136 Jan6 <> time_05_20_PM def
+R6138:6149 Jan6 <> GuardDeploys constr
+R6151:6159 Jan6 <> DCArsenal constr
+def 6174:6194 <> event_capitol_secured
+R6198:6202 Jan6 <> Event rec
+R6209:6215 Jan6 <> mkEvent constr
+R6217:6229 Jan6 <> time_06_00_PM def
+R6231:6244 Jan6 <> CapitolSecured constr
+R6246:6254 Jan6 <> WestFront constr
+def 6269:6289 <> event_session_resumes
+R6293:6297 Jan6 <> Event rec
+R6304:6310 Jan6 <> mkEvent constr
+R6312:6324 Jan6 <> time_08_00_PM def
+R6326:6339 Jan6 <> SessionResumes constr
+R6341:6352 Jan6 <> HouseChamber constr
+def 6367:6394 <> event_certification_complete
+R6398:6402 Jan6 <> Event rec
+R6409:6415 Jan6 <> mkEvent constr
+R6417:6434 Jan6 <> time_03_40_AM_next def
+R6436:6456 Jan6 <> CertificationComplete constr
+R6458:6469 Jan6 <> HouseChamber constr
+def 6484:6491 <> timeline
+R6495:6498 Coq.Init.Datatypes <> list ind
+R6500:6504 Jan6 <> Event rec
+R6511:6512 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6535:6542 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6561:6568 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6592:6599 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6621:6628 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6648:6655 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6678:6685 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6705:6712 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6734:6741 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6763:6770 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6789:6796 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6817:6824 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6845:6852 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6875:6882 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6902:6909 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6931:6938 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6960:6967 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6996:7002 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6513:6534 Jan6 <> event_session_convenes def
+R6543:6560 Jan6 <> event_rally_begins def
+R6569:6591 Jan6 <> event_trump_speech_ends def
+R6600:6620 Jan6 <> event_guard_requested def
+R6629:6647 Jan6 <> event_riot_declared def
+R6656:6677 Jan6 <> event_barricade_breach def
+R6686:6704 Jan6 <> event_window_breach def
+R6713:6733 Jan6 <> event_building_breach def
+R6742:6762 Jan6 <> event_pence_evacuated def
+R6771:6788 Jan6 <> event_babbitt_shot def
+R6797:6816 Jan6 <> event_hodges_crushed def
+R6825:6844 Jan6 <> event_fanone_assault def
+R6853:6874 Jan6 <> event_guard_authorized def
+R6883:6901 Jan6 <> event_guard_deploys def
+R6910:6930 Jan6 <> event_capitol_secured def
+R6939:6959 Jan6 <> event_session_resumes def
+R6968:6995 Jan6 <> event_certification_complete def
+ind 7016:7041 <> SeditiousConspiracyElement
+constr 7055:7070 <> TwoOrMorePersons
+constr 7106:7124 <> ConspireToOverthrow
+constr 7160:7166 <> LevyWar
+constr 7202:7214 <> OpposeByForce
+constr 7250:7267 <> PreventHinderDelay
+constr 7303:7317 <> SeizeUSProperty
+R7074:7099 Jan6 <> SeditiousConspiracyElement:15 ind
+R7128:7153 Jan6 <> SeditiousConspiracyElement:15 ind
+R7170:7195 Jan6 <> SeditiousConspiracyElement:15 ind
+R7218:7243 Jan6 <> SeditiousConspiracyElement:15 ind
+R7271:7296 Jan6 <> SeditiousConspiracyElement:15 ind
+R7321:7346 Jan6 <> SeditiousConspiracyElement:15 ind
+scheme 7016:7041 <> SeditiousConspiracyElement_rect
+scheme 7016:7041 <> SeditiousConspiracyElement_ind
+scheme 7016:7041 <> SeditiousConspiracyElement_rec
+scheme 7016:7041 <> SeditiousConspiracyElement_sind
+rec 7357:7381 <> SeditiousConspiracyCharge
+proj 7422:7433 <> charge_group
+proj 7452:7464 <> charge_leader
+proj 7488:7502 <> elements_proven
+R7437:7441 Jan6 <> Group ind
+R7468:7477 Jan6 <> NamedActor ind
+R7506:7509 Coq.Init.Datatypes <> list ind
+R7511:7536 Jan6 <> SeditiousConspiracyElement ind
+def 7560:7580 <> oath_keepers_elements
+R7584:7587 Coq.Init.Datatypes <> list ind
+R7589:7614 Jan6 <> SeditiousConspiracyElement ind
+R7621:7622 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7639:7646 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7660:7667 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7686:7693 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7709:7715 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7623:7638 Jan6 <> TwoOrMorePersons constr
+R7647:7659 Jan6 <> OpposeByForce constr
+R7668:7685 Jan6 <> PreventHinderDelay constr
+R7694:7708 Jan6 <> SeizeUSProperty constr
+def 7730:7748 <> proud_boys_elements
+R7752:7755 Coq.Init.Datatypes <> list ind
+R7757:7782 Jan6 <> SeditiousConspiracyElement ind
+R7789:7790 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7807:7814 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7828:7835 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7854:7860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7791:7806 Jan6 <> TwoOrMorePersons constr
+R7815:7827 Jan6 <> OpposeByForce constr
+R7836:7853 Jan6 <> PreventHinderDelay constr
+def 7875:7893 <> oath_keepers_charge
+R7897:7921 Jan6 <> SeditiousConspiracyCharge rec
+R7928:7944 Jan6 <> mkSeditiousCharge constr
+R7946:7956 Jan6 <> OathKeepers constr
+R7958:7970 Jan6 <> StewartRhodes constr
+R7972:7992 Jan6 <> oath_keepers_elements def
+def 8007:8023 <> proud_boys_charge
+R8027:8051 Jan6 <> SeditiousConspiracyCharge rec
+R8058:8074 Jan6 <> mkSeditiousCharge constr
+R8076:8084 Jan6 <> ProudBoys constr
+R8086:8098 Jan6 <> EnriqueTarrio constr
+R8100:8118 Jan6 <> proud_boys_elements def
+def 8133:8138 <> Months
+R8143:8145 Coq.Init.Datatypes <> nat ind
+ind 8159:8164 <> Charge
+constr 8178:8196 <> SeditiousConspiracy
+constr 8212:8240 <> ObstructionOfficialProceeding
+constr 8256:8275 <> ConspiracyToObstruct
+constr 8291:8312 <> TamperingWithDocuments
+constr 8328:8343 <> AssaultOnOfficer
+constr 8359:8371 <> CivilDisorder
+constr 8387:8407 <> DestructionOfProperty
+R8200:8205 Jan6 <> Charge:21 ind
+R8244:8249 Jan6 <> Charge:21 ind
+R8279:8284 Jan6 <> Charge:21 ind
+R8316:8321 Jan6 <> Charge:21 ind
+R8347:8352 Jan6 <> Charge:21 ind
+R8375:8380 Jan6 <> Charge:21 ind
+R8411:8416 Jan6 <> Charge:21 ind
+scheme 8159:8164 <> Charge_rect
+scheme 8159:8164 <> Charge_ind
+scheme 8159:8164 <> Charge_rec
+scheme 8159:8164 <> Charge_sind
+rec 8427:8436 <> Conviction
+proj 8472:8478 <> convict
+proj 8502:8514 <> convict_group
+proj 8533:8539 <> charges
+proj 8564:8578 <> sentence_months
+proj 8598:8618 <> terrorism_enhancement
+R8482:8491 Jan6 <> NamedActor ind
+R8518:8522 Jan6 <> Group ind
+R8543:8546 Coq.Init.Datatypes <> list ind
+R8548:8553 Jan6 <> Charge ind
+R8582:8587 Jan6 <> Months def
+R8622:8625 Coq.Init.Datatypes <> bool ind
+def 8649:8665 <> conviction_rhodes
+R8669:8678 Jan6 <> Conviction rec
+R8685:8696 Jan6 <> mkConviction constr
+R8705:8717 Jan6 <> StewartRhodes constr
+R8726:8736 Jan6 <> OathKeepers constr
+R8745:8745 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8765:8766 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8796:8797 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8820:8820 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8746:8764 Jan6 <> SeditiousConspiracy constr
+R8767:8795 Jan6 <> ObstructionOfficialProceeding constr
+R8798:8819 Jan6 <> TamperingWithDocuments constr
+R8840:8843 Coq.Init.Datatypes <> true constr
+def 8858:8874 <> conviction_tarrio
+R8878:8887 Jan6 <> Conviction rec
+R8894:8905 Jan6 <> mkConviction constr
+R8914:8926 Jan6 <> EnriqueTarrio constr
+R8935:8943 Jan6 <> ProudBoys constr
+R8952:8952 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8972:8973 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8994:8994 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8953:8971 Jan6 <> SeditiousConspiracy constr
+R8974:8993 Jan6 <> ConspiracyToObstruct constr
+R9014:9017 Coq.Init.Datatypes <> true constr
+def 9032:9049 <> conviction_nordean
+R9053:9062 Jan6 <> Conviction rec
+R9069:9080 Jan6 <> mkConviction constr
+R9089:9100 Jan6 <> EthanNordean constr
+R9109:9117 Jan6 <> ProudBoys constr
+R9126:9126 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9146:9147 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9168:9168 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9127:9145 Jan6 <> SeditiousConspiracy constr
+R9148:9167 Jan6 <> ConspiracyToObstruct constr
+R9188:9191 Coq.Init.Datatypes <> true constr
+def 9206:9221 <> conviction_biggs
+R9225:9234 Jan6 <> Conviction rec
+R9241:9252 Jan6 <> mkConviction constr
+R9261:9271 Jan6 <> JosephBiggs constr
+R9280:9288 Jan6 <> ProudBoys constr
+R9297:9297 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9317:9318 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9339:9339 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9298:9316 Jan6 <> SeditiousConspiracy constr
+R9319:9338 Jan6 <> ConspiracyToObstruct constr
+R9359:9362 Coq.Init.Datatypes <> true constr
+def 9377:9391 <> conviction_rehl
+R9395:9404 Jan6 <> Conviction rec
+R9411:9422 Jan6 <> mkConviction constr
+R9431:9441 Jan6 <> ZacharyRehl constr
+R9450:9458 Jan6 <> ProudBoys constr
+R9467:9467 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9487:9488 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9509:9509 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9468:9486 Jan6 <> SeditiousConspiracy constr
+R9489:9508 Jan6 <> ConspiracyToObstruct constr
+R9529:9532 Coq.Init.Datatypes <> true constr
+def 9547:9564 <> conviction_pezzola
+R9568:9577 Jan6 <> Conviction rec
+R9584:9595 Jan6 <> mkConviction constr
+R9604:9617 Jan6 <> DominicPezzola constr
+R9626:9634 Jan6 <> ProudBoys constr
+R9643:9643 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9673:9674 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9691:9692 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9706:9707 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9729:9729 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9644:9672 Jan6 <> ObstructionOfficialProceeding constr
+R9675:9690 Jan6 <> AssaultOnOfficer constr
+R9693:9705 Jan6 <> CivilDisorder constr
+R9708:9728 Jan6 <> DestructionOfProperty constr
+R9749:9753 Coq.Init.Datatypes <> false constr
+def 9768:9783 <> conviction_meggs
+R9787:9796 Jan6 <> Conviction rec
+R9803:9814 Jan6 <> mkConviction constr
+R9823:9832 Jan6 <> KellyMeggs constr
+R9841:9851 Jan6 <> OathKeepers constr
+R9860:9860 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9880:9881 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9902:9902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9861:9879 Jan6 <> SeditiousConspiracy constr
+R9882:9901 Jan6 <> ConspiracyToObstruct constr
+R9922:9925 Coq.Init.Datatypes <> true constr
+def 9940:9964 <> all_seditious_convictions
+R9968:9971 Coq.Init.Datatypes <> list ind
+R9973:9982 Jan6 <> Conviction rec
+R9989:9990 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10008:10015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10033:10040 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10059:10066 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10083:10090 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10106:10113 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10130:10136 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9991:10007 Jan6 <> conviction_rhodes def
+R10016:10032 Jan6 <> conviction_tarrio def
+R10041:10058 Jan6 <> conviction_nordean def
+R10067:10082 Jan6 <> conviction_biggs def
+R10091:10105 Jan6 <> conviction_rehl def
+R10114:10129 Jan6 <> conviction_meggs def
+ind 10150:10159 <> InjuryType
+constr 10173:10192 <> TraumaticBrainInjury
+constr 10212:10221 <> Laceration
+constr 10241:10257 <> CrushedSpinalDisc
+constr 10277:10292 <> ChemicalExposure
+constr 10312:10317 <> Tasing
+constr 10337:10346 <> Concussion
+constr 10366:10375 <> CrackedRib
+constr 10395:10408 <> ShoulderInjury
+constr 10428:10437 <> FootInjury
+constr 10457:10467 <> HeartAttack
+constr 10487:10490 <> PTSD
+R10196:10205 Jan6 <> InjuryType:29 ind
+R10225:10234 Jan6 <> InjuryType:29 ind
+R10261:10270 Jan6 <> InjuryType:29 ind
+R10296:10305 Jan6 <> InjuryType:29 ind
+R10321:10330 Jan6 <> InjuryType:29 ind
+R10350:10359 Jan6 <> InjuryType:29 ind
+R10379:10388 Jan6 <> InjuryType:29 ind
+R10412:10421 Jan6 <> InjuryType:29 ind
+R10441:10450 Jan6 <> InjuryType:29 ind
+R10471:10480 Jan6 <> InjuryType:29 ind
+R10494:10503 Jan6 <> InjuryType:29 ind
+scheme 10150:10159 <> InjuryType_rect
+scheme 10150:10159 <> InjuryType_ind
+scheme 10150:10159 <> InjuryType_rec
+scheme 10150:10159 <> InjuryType_sind
+rec 10514:10526 <> OfficerInjury
+proj 10565:10579 <> injured_officer
+proj 10603:10616 <> officer_agency
+proj 10643:10657 <> injury_location
+proj 10679:10689 <> injury_time
+proj 10709:10716 <> injuries
+R10583:10592 Jan6 <> NamedActor ind
+R10620:10632 Jan6 <> ActorCategory ind
+R10661:10668 Jan6 <> Location ind
+R10693:10698 Jan6 <> Minute def
+R10720:10723 Coq.Init.Datatypes <> list ind
+R10725:10734 Jan6 <> InjuryType ind
+def 10758:10770 <> injury_hodges
+R10774:10786 Jan6 <> OfficerInjury rec
+R10793:10807 Jan6 <> mkOfficerInjury constr
+R10816:10827 Jan6 <> DanielHodges constr
+R10836:10853 Jan6 <> MetropolitanPolice constr
+R10862:10883 Jan6 <> LowerWestTerraceTunnel constr
+R10892:10904 Jan6 <> time_03_15_PM def
+R10913:10913 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10934:10935 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10946:10947 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10958:10958 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10914:10933 Jan6 <> TraumaticBrainInjury constr
+R10936:10945 Jan6 <> Laceration constr
+R10948:10957 Jan6 <> Concussion constr
+def 10973:10985 <> injury_fanone
+R10989:11001 Jan6 <> OfficerInjury rec
+R11008:11022 Jan6 <> mkOfficerInjury constr
+R11031:11043 Jan6 <> MichaelFanone constr
+R11052:11069 Jan6 <> MetropolitanPolice constr
+R11078:11099 Jan6 <> LowerWestTerraceTunnel constr
+R11108:11120 Jan6 <> time_03_21_PM def
+R11129:11129 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11150:11151 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11163:11164 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11171:11172 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11189:11190 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11195:11195 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11130:11149 Jan6 <> TraumaticBrainInjury constr
+R11152:11162 Jan6 <> HeartAttack constr
+R11165:11170 Jan6 <> Tasing constr
+R11173:11188 Jan6 <> ChemicalExposure constr
+R11191:11194 Jan6 <> PTSD constr
+def 11210:11222 <> injury_gonell
+R11226:11238 Jan6 <> OfficerInjury rec
+R11245:11259 Jan6 <> mkOfficerInjury constr
+R11268:11281 Jan6 <> AquilinoGonell constr
+R11290:11302 Jan6 <> CapitolPolice constr
+R11311:11332 Jan6 <> LowerWestTerraceTunnel constr
+R11341:11353 Jan6 <> time_03_15_PM def
+R11362:11362 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11377:11378 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11389:11390 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11407:11408 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11413:11413 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11363:11376 Jan6 <> ShoulderInjury constr
+R11379:11388 Jan6 <> FootInjury constr
+R11391:11406 Jan6 <> ChemicalExposure constr
+R11409:11412 Jan6 <> PTSD constr
+def 11428:11453 <> documented_tunnel_injuries
+R11457:11460 Coq.Init.Datatypes <> list ind
+R11462:11474 Jan6 <> OfficerInjury rec
+R11481:11481 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11495:11496 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11510:11511 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11525:11525 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11482:11494 Jan6 <> injury_hodges def
+R11497:11509 Jan6 <> injury_fanone def
+R11512:11524 Jan6 <> injury_gonell def
+def 11540:11561 <> total_officers_injured
+R11565:11567 Coq.Init.Datatypes <> nat ind
+def 11589:11609 <> officers_hospitalized
+R11613:11615 Coq.Init.Datatypes <> nat ind
+ind 11635:11652 <> CertificationState
+constr 11666:11676 <> NotConvened
+constr 11704:11712 <> InSession
+constr 11740:11747 <> Recessed
+constr 11775:11785 <> Interrupted
+constr 11813:11819 <> Resumed
+constr 11847:11855 <> Certified
+R11680:11697 Jan6 <> CertificationState:37 ind
+R11716:11733 Jan6 <> CertificationState:37 ind
+R11751:11768 Jan6 <> CertificationState:37 ind
+R11789:11806 Jan6 <> CertificationState:37 ind
+R11823:11840 Jan6 <> CertificationState:37 ind
+R11859:11876 Jan6 <> CertificationState:37 ind
+scheme 11635:11652 <> CertificationState_rect
+scheme 11635:11652 <> CertificationState_ind
+scheme 11635:11652 <> CertificationState_rec
+scheme 11635:11652 <> CertificationState_sind
+rec 11887:11908 <> ElectoralCertification
+proj 11947:11963 <> presiding_officer
+proj 11987:11999 <> session_start
+proj 12019:12035 <> interruption_time
+proj 12062:12076 <> resumption_time
+proj 12103:12120 <> certification_time
+proj 12147:12157 <> final_state
+R11967:11976 Jan6 <> NamedActor ind
+R12003:12008 Jan6 <> Minute def
+R12039:12044 Coq.Init.Datatypes <> option ind
+R12046:12051 Jan6 <> Minute def
+R12080:12085 Coq.Init.Datatypes <> option ind
+R12087:12092 Jan6 <> Minute def
+R12124:12129 Coq.Init.Datatypes <> option ind
+R12131:12136 Jan6 <> Minute def
+R12161:12178 Jan6 <> CertificationState ind
+def 12202:12219 <> jan6_certification
+R12223:12244 Jan6 <> ElectoralCertification rec
+R12251:12265 Jan6 <> mkCertification constr
+R12274:12282 Jan6 <> MikePence constr
+R12291:12303 Jan6 <> time_01_00_PM def
+R12313:12316 Coq.Init.Datatypes <> Some constr
+R12318:12330 Jan6 <> time_02_13_PM def
+R12341:12344 Coq.Init.Datatypes <> Some constr
+R12346:12358 Jan6 <> time_08_00_PM def
+R12369:12372 Coq.Init.Datatypes <> Some constr
+R12374:12391 Jan6 <> time_03_40_AM_next def
+R12401:12409 Jan6 <> Certified constr
+def 12424:12442 <> session_interrupted
+R12449:12470 Jan6 <> ElectoralCertification rec
+binder 12445:12445 <> c:46
+R12477:12480 Coq.Init.Datatypes <> bool ind
+R12493:12509 Jan6 <> interruption_time proj
+R12511:12511 Jan6 <> c:46 var
+R12525:12528 Coq.Init.Datatypes <> Some constr
+R12535:12538 Coq.Init.Datatypes <> true constr
+R12547:12550 Coq.Init.Datatypes <> None constr
+R12555:12559 Coq.Init.Datatypes <> false constr
+def 12583:12599 <> session_completed
+R12606:12627 Jan6 <> ElectoralCertification rec
+binder 12602:12602 <> c:47
+R12634:12637 Coq.Init.Datatypes <> bool ind
+R12650:12660 Jan6 <> final_state proj
+R12662:12662 Jan6 <> c:47 var
+R12676:12684 Jan6 <> Certified constr
+R12689:12692 Coq.Init.Datatypes <> true constr
+R12706:12710 Coq.Init.Datatypes <> false constr
+ind 12733:12746 <> GuardAuthority
+constr 12760:12768 <> President
+constr 12792:12809 <> SecretaryOfDefense
+constr 12833:12847 <> SecretaryOfArmy
+constr 12871:12894 <> DCNationalGuardCommander
+R12772:12785 Jan6 <> GuardAuthority:48 ind
+R12813:12826 Jan6 <> GuardAuthority:48 ind
+R12851:12864 Jan6 <> GuardAuthority:48 ind
+R12898:12911 Jan6 <> GuardAuthority:48 ind
+scheme 12733:12746 <> GuardAuthority_rect
+scheme 12733:12746 <> GuardAuthority_ind
+scheme 12733:12746 <> GuardAuthority_rec
+scheme 12733:12746 <> GuardAuthority_sind
+rec 12922:12943 <> GuardDeploymentRequest
+proj 12981:12989 <> requester
+proj 13013:13024 <> request_time
+proj 13044:13061 <> authorization_time
+proj 13088:13102 <> deployment_time
+proj 13129:13148 <> authorizing_official
+R12993:13002 Jan6 <> NamedActor ind
+R13028:13033 Jan6 <> Minute def
+R13065:13070 Coq.Init.Datatypes <> option ind
+R13072:13077 Jan6 <> Minute def
+R13106:13111 Coq.Init.Datatypes <> option ind
+R13113:13118 Jan6 <> Minute def
+R13152:13157 Coq.Init.Datatypes <> option ind
+R13159:13168 Jan6 <> NamedActor ind
+def 13192:13209 <> jan6_guard_request
+R13213:13234 Jan6 <> GuardDeploymentRequest rec
+R13241:13254 Jan6 <> mkGuardRequest constr
+R13263:13272 Jan6 <> StevenSund constr
+R13281:13293 Jan6 <> time_01_49_PM def
+R13303:13306 Coq.Init.Datatypes <> Some constr
+R13308:13320 Jan6 <> time_04_32_PM def
+R13331:13334 Coq.Init.Datatypes <> Some constr
+R13336:13348 Jan6 <> time_05_20_PM def
+R13359:13362 Coq.Init.Datatypes <> Some constr
+R13364:13380 Jan6 <> ChristopherMiller constr
+def 13396:13414 <> guard_delay_minutes
+R13421:13442 Jan6 <> GuardDeploymentRequest rec
+binder 13417:13417 <> r:56
+R13449:13454 Coq.Init.Datatypes <> option ind
+R13456:13458 Coq.Init.Datatypes <> nat ind
+R13471:13488 Jan6 <> authorization_time proj
+R13490:13490 Jan6 <> r:56 var
+R13504:13507 Coq.Init.Datatypes <> Some constr
+R13517:13520 Coq.Init.Datatypes <> Some constr
+R13527:13529 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13530:13541 Jan6 <> request_time proj
+R13543:13543 Jan6 <> r:56 var
+R13553:13556 Coq.Init.Datatypes <> None constr
+R13561:13564 Coq.Init.Datatypes <> None constr
+def 13588:13611 <> jan6_authorization_delay
+R13615:13620 Coq.Init.Datatypes <> option ind
+R13622:13624 Coq.Init.Datatypes <> nat ind
+R13631:13649 Jan6 <> guard_delay_minutes def
+R13651:13668 Jan6 <> jan6_guard_request def
+prf 13678:13701 <> breach_before_evacuation
+R13739:13742 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13707:13716 Jan6 <> event_time proj
+R13718:13738 Jan6 <> event_building_breach def
+R13743:13752 Jan6 <> event_time proj
+R13754:13774 Jan6 <> event_pence_evacuated def
+R13793:13813 Jan6 <> event_building_breach def
+R13816:13836 Jan6 <> event_pence_evacuated def
+R13888:13890 Coq.micromega.Lia <> <> lib
+prf 13900:13928 <> guard_requested_before_breach
+R13966:13968 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13934:13943 Jan6 <> event_time proj
+R13945:13965 Jan6 <> event_guard_requested def
+R13969:13978 Jan6 <> event_time proj
+R13980:14000 Jan6 <> event_building_breach def
+R14019:14039 Jan6 <> event_guard_requested def
+R14042:14062 Jan6 <> event_building_breach def
+R14083:14095 Jan6 <> time_01_49_PM def
+R14098:14110 Jan6 <> time_02_13_PM def
+prf 14136:14167 <> guard_delay_exceeded_three_hours
+R14197:14199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14173:14196 Jan6 <> jan6_authorization_delay def
+R14200:14203 Coq.Init.Datatypes <> Some constr
+R14226:14249 Jan6 <> jan6_authorization_delay def
+R14252:14270 Jan6 <> guard_delay_minutes def
+R14273:14290 Jan6 <> jan6_guard_request def
+R14311:14323 Jan6 <> time_04_32_PM def
+R14326:14338 Jan6 <> time_01_49_PM def
+prf 14372:14400 <> certification_was_interrupted
+R14444:14446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14406:14424 Jan6 <> session_interrupted def
+R14426:14443 Jan6 <> jan6_certification def
+R14447:14450 Coq.Init.Datatypes <> true constr
+R14469:14487 Jan6 <> session_interrupted def
+R14490:14507 Jan6 <> jan6_certification def
+prf 14550:14583 <> certification_eventually_completed
+R14625:14627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14589:14605 Jan6 <> session_completed def
+R14607:14624 Jan6 <> jan6_certification def
+R14628:14631 Coq.Init.Datatypes <> true constr
+R14650:14666 Jan6 <> session_completed def
+R14669:14686 Jan6 <> jan6_certification def
+prf 14729:14751 <> tarrio_longest_sentence
+R14790:14792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14757:14771 Jan6 <> sentence_months proj
+R14773:14789 Jan6 <> conviction_tarrio def
+R14814:14830 Jan6 <> conviction_tarrio def
+prf 14873:14896 <> rhodes_sentence_18_years
+R14935:14937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14902:14916 Jan6 <> sentence_months proj
+R14918:14934 Jan6 <> conviction_rhodes def
+R14959:14975 Jan6 <> conviction_rhodes def
+def 15023:15047 <> has_terrorism_enhancement
+R15054:15063 Jan6 <> Conviction rec
+binder 15050:15050 <> c:57
+R15070:15073 Coq.Init.Datatypes <> bool ind
+R15080:15100 Jan6 <> terrorism_enhancement proj
+R15102:15102 Jan6 <> c:57 var
+prf 15112:15151 <> all_seditious_have_terrorism_enhancement
+R15216:15218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15157:15163 Coq.Lists.List <> forallb def
+R15191:15215 Jan6 <> all_seditious_convictions def
+R15165:15189 Jan6 <> has_terrorism_enhancement def
+R15219:15222 Coq.Init.Datatypes <> true constr
+R15241:15265 Jan6 <> all_seditious_convictions def
+R15268:15292 Jan6 <> has_terrorism_enhancement def
+def 15340:15360 <> interruption_duration
+R15367:15388 Jan6 <> ElectoralCertification rec
+binder 15363:15363 <> c:58
+R15395:15400 Coq.Init.Datatypes <> option ind
+R15402:15404 Coq.Init.Datatypes <> nat ind
+R15438:15452 Jan6 <> resumption_time proj
+R15454:15454 Jan6 <> c:58 var
+R15417:15433 Jan6 <> interruption_time proj
+R15435:15435 Jan6 <> c:58 var
+R15468:15471 Coq.Init.Datatypes <> Some constr
+R15476:15479 Coq.Init.Datatypes <> Some constr
+R15486:15489 Coq.Init.Datatypes <> Some constr
+R15493:15495 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15514:15517 Coq.Init.Datatypes <> None constr
+prf 15536:15568 <> jan6_interruption_was_347_minutes
+R15614:15616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15574:15594 Jan6 <> interruption_duration def
+R15596:15613 Jan6 <> jan6_certification def
+R15617:15620 Coq.Init.Datatypes <> Some constr
+R15643:15663 Jan6 <> interruption_duration def
+R15666:15683 Jan6 <> jan6_certification def
+R15704:15716 Jan6 <> time_08_00_PM def
+R15719:15731 Jan6 <> time_02_13_PM def
+def 15770:15795 <> breach_to_secured_duration
+R15799:15801 Coq.Init.Datatypes <> nat ind
+R15821:15823 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15808:15820 Jan6 <> time_06_00_PM def
+R15824:15836 Jan6 <> time_02_13_PM def
+prf 15846:15878 <> capitol_unsecured_for_227_minutes
+R15910:15912 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15884:15909 Jan6 <> breach_to_secured_duration def
+R15934:15959 Jan6 <> breach_to_secured_duration def
+R15971:15983 Jan6 <> time_06_00_PM def
+R15986:15998 Jan6 <> time_02_13_PM def
+def 16037:16070 <> tunnel_injuries_occurred_at_tunnel
+binder 16093:16095 <> inj:59
+R16131:16139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16098:16099 Coq.Lists.List <> In def
+R16105:16130 Jan6 <> documented_tunnel_injuries def
+R16101:16103 Jan6 <> inj:59 var
+R16159:16161 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16140:16154 Jan6 <> injury_location proj
+R16156:16158 Jan6 <> inj:59 var
+R16162:16183 Jan6 <> LowerWestTerraceTunnel constr
+prf 16193:16221 <> all_tunnel_injuries_at_tunnel
+R16227:16260 Jan6 <> tunnel_injuries_occurred_at_tunnel def
+R16279:16312 Jan6 <> tunnel_injuries_occurred_at_tunnel def
+R16340:16365 Jan6 <> documented_tunnel_injuries def
+def 16569:16599 <> total_seditious_sentence_months
+R16603:16605 Coq.Init.Datatypes <> nat ind
+R16612:16620 Coq.Lists.List <> fold_left def
+R16661:16685 Jan6 <> all_seditious_convictions def
+binder 16627:16629 <> acc:60
+binder 16631:16631 <> c:61
+R16639:16641 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16636:16638 Jan6 <> acc:60 var
+R16642:16656 Jan6 <> sentence_months proj
+R16658:16658 Jan6 <> c:61 var
+prf 16697:16724 <> combined_seditious_sentences
+R16761:16763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16730:16760 Jan6 <> total_seditious_sentence_months def
+R16786:16816 Jan6 <> total_seditious_sentence_months def
+R16819:16843 Jan6 <> all_seditious_convictions def
+prf 16886:16918 <> pence_presided_over_certification
+R16960:16962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16924:16940 Jan6 <> presiding_officer proj
+R16942:16959 Jan6 <> jan6_certification def
+R16963:16971 Jan6 <> MikePence constr
+R16990:17007 Jan6 <> jan6_certification def
+prf 17050:17084 <> certification_delay_was_940_minutes
+R17096:17113 Jan6 <> certification_time proj
+R17115:17132 Jan6 <> jan6_certification def
+R17145:17148 Coq.Init.Datatypes <> Some constr
+R17193:17195 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17158:17160 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R17161:17173 Jan6 <> session_start proj
+R17175:17192 Jan6 <> jan6_certification def
+R17206:17209 Coq.Init.Datatypes <> None constr
+R17214:17218 Coq.Init.Logic <> False ind
+R17245:17262 Jan6 <> jan6_certification def
+R17283:17300 Jan6 <> time_03_40_AM_next def
+R17303:17315 Jan6 <> time_01_00_PM def
