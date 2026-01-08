@@ -184,13 +184,40 @@ Inductive LawEnforcementOfficer
    | AbdulkadirAbdi
    | GeorgeDonigian
    | WilliamBogner
+   | JesseLeasure
+   | RobertGlover
+   | ChristopherMonroe
+   | ThomasBurgess
+   | MarkKeene
    | OfficerCE
    | OfficerDC
    | OfficerAW
    | OfficerLostEye
    | OfficerStabbed
    | OfficerCrackedRibs
-   | OfficerDraggedLeg.
+   | OfficerDraggedLeg
+   | USCP_001 | USCP_002 | USCP_003 | USCP_004 | USCP_005
+   | USCP_006 | USCP_007 | USCP_008 | USCP_009 | USCP_010
+   | USCP_011 | USCP_012 | USCP_013 | USCP_014 | USCP_015
+   | USCP_016 | USCP_017 | USCP_018 | USCP_019 | USCP_020
+   | USCP_021 | USCP_022 | USCP_023 | USCP_024 | USCP_025
+   | USCP_026 | USCP_027 | USCP_028 | USCP_029 | USCP_030
+   | USCP_031 | USCP_032 | USCP_033 | USCP_034 | USCP_035
+   | USCP_036 | USCP_037 | USCP_038 | USCP_039 | USCP_040
+   | USCP_041 | USCP_042 | USCP_043 | USCP_044 | USCP_045
+   | USCP_046 | USCP_047 | USCP_048 | USCP_049 | USCP_050
+   | USCP_051 | USCP_052 | USCP_053 | USCP_054 | USCP_055
+   | MPD_001 | MPD_002 | MPD_003 | MPD_004 | MPD_005
+   | MPD_006 | MPD_007 | MPD_008 | MPD_009 | MPD_010
+   | MPD_011 | MPD_012 | MPD_013 | MPD_014 | MPD_015
+   | MPD_016 | MPD_017 | MPD_018 | MPD_019 | MPD_020
+   | MPD_021 | MPD_022 | MPD_023 | MPD_024 | MPD_025
+   | MPD_026 | MPD_027 | MPD_028 | MPD_029 | MPD_030
+   | MPD_031 | MPD_032 | MPD_033 | MPD_034 | MPD_035
+   | MPD_036 | MPD_037 | MPD_038 | MPD_039 | MPD_040
+   | MPD_041 | MPD_042 | MPD_043 | MPD_044 | MPD_045
+   | MPD_046 | MPD_047 | MPD_048 | MPD_049 | MPD_050
+   | MPD_051 | MPD_052.
 
 Inductive ElectedOfficialPerson
   : Type
@@ -1593,34 +1620,178 @@ Definition injury_smith
        true
        Deceased.
 
+Definition injury_leasure
+  : OfficerInjury
+  := mkOfficerInjury JesseLeasure MPD LowerWestTerraceTunnel t_1515
+       [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+
+Definition injury_glover
+  : OfficerInjury
+  := mkOfficerInjury RobertGlover USCP WestFront t_1400
+       [ChemicalExposure; Laceration] Moderate false ReturnedToDuty.
+
+Definition injury_monroe
+  : OfficerInjury
+  := mkOfficerInjury ChristopherMonroe USCP Rotunda t_1430
+       [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+
+Definition injury_burgess
+  : OfficerInjury
+  := mkOfficerInjury ThomasBurgess MPD WestFront t_1415
+       [Laceration; Contusion] Moderate false ReturnedToDuty.
+
+Definition injury_keene
+  : OfficerInjury
+  := mkOfficerInjury MarkKeene USCP EastFront t_1420
+       [ChemicalExposure] Minor false ReturnedToDuty.
+
+Definition inj_uscp_001 : OfficerInjury := mkOfficerInjury USCP_001 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_002 : OfficerInjury := mkOfficerInjury USCP_002 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_003 : OfficerInjury := mkOfficerInjury USCP_003 USCP WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_004 : OfficerInjury := mkOfficerInjury USCP_004 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_005 : OfficerInjury := mkOfficerInjury USCP_005 USCP LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_uscp_006 : OfficerInjury := mkOfficerInjury USCP_006 USCP LowerWestTerraceTunnel t_1515 [Concussion; ChemicalExposure] Moderate true ReturnedToDuty.
+Definition inj_uscp_007 : OfficerInjury := mkOfficerInjury USCP_007 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_008 : OfficerInjury := mkOfficerInjury USCP_008 USCP Rotunda t_1430 [Contusion; Laceration] Moderate false ReturnedToDuty.
+Definition inj_uscp_009 : OfficerInjury := mkOfficerInjury USCP_009 USCP WestFront t_1415 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_010 : OfficerInjury := mkOfficerInjury USCP_010 USCP EastFront t_1420 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_011 : OfficerInjury := mkOfficerInjury USCP_011 USCP WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_012 : OfficerInjury := mkOfficerInjury USCP_012 USCP LowerWestTerraceTunnel t_1515 [TraumaticBrainInjury; ChemicalExposure] Severe true MedicalLeave.
+Definition inj_uscp_013 : OfficerInjury := mkOfficerInjury USCP_013 USCP WestFront t_1400 [ChemicalExposure; Abrasion] Minor false ReturnedToDuty.
+Definition inj_uscp_014 : OfficerInjury := mkOfficerInjury USCP_014 USCP Rotunda t_1430 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_015 : OfficerInjury := mkOfficerInjury USCP_015 USCP WestFront t_1415 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_uscp_016 : OfficerInjury := mkOfficerInjury USCP_016 USCP CryptLevel t_1425 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_017 : OfficerInjury := mkOfficerInjury USCP_017 USCP WestFront t_1400 [Laceration; ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_uscp_018 : OfficerInjury := mkOfficerInjury USCP_018 USCP EastRotundaDoors t_1426 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_019 : OfficerInjury := mkOfficerInjury USCP_019 USCP WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_020 : OfficerInjury := mkOfficerInjury USCP_020 USCP LowerWestTerraceTunnel t_1515 [Concussion; Laceration] Moderate true ReturnedToDuty.
+Definition inj_uscp_021 : OfficerInjury := mkOfficerInjury USCP_021 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_022 : OfficerInjury := mkOfficerInjury USCP_022 USCP Rotunda t_1430 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_023 : OfficerInjury := mkOfficerInjury USCP_023 USCP WestFront t_1400 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_uscp_024 : OfficerInjury := mkOfficerInjury USCP_024 USCP WestFront t_1415 [ChemicalExposure; PTSD] Moderate false ReturnedToDuty.
+Definition inj_uscp_025 : OfficerInjury := mkOfficerInjury USCP_025 USCP LowerWestTerraceTunnel t_1515 [CrushedSpinalDisc; ChemicalExposure] Severe true MedicalRetirement.
+Definition inj_uscp_026 : OfficerInjury := mkOfficerInjury USCP_026 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_027 : OfficerInjury := mkOfficerInjury USCP_027 USCP EastFront t_1420 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_028 : OfficerInjury := mkOfficerInjury USCP_028 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_029 : OfficerInjury := mkOfficerInjury USCP_029 USCP Rotunda t_1430 [Laceration] Minor false ReturnedToDuty.
+Definition inj_uscp_030 : OfficerInjury := mkOfficerInjury USCP_030 USCP WestFront t_1415 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_uscp_031 : OfficerInjury := mkOfficerInjury USCP_031 USCP CryptLevel t_1425 [ChemicalExposure; PTSD] Moderate false MedicalLeave.
+Definition inj_uscp_032 : OfficerInjury := mkOfficerInjury USCP_032 USCP WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_033 : OfficerInjury := mkOfficerInjury USCP_033 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_034 : OfficerInjury := mkOfficerInjury USCP_034 USCP LowerWestTerraceTunnel t_1515 [Contusion; ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_uscp_035 : OfficerInjury := mkOfficerInjury USCP_035 USCP WestFront t_1415 [ChemicalExposure; Laceration] Moderate false ReturnedToDuty.
+Definition inj_uscp_036 : OfficerInjury := mkOfficerInjury USCP_036 USCP Rotunda t_1430 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_037 : OfficerInjury := mkOfficerInjury USCP_037 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_038 : OfficerInjury := mkOfficerInjury USCP_038 USCP EastRotundaDoors t_1426 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_039 : OfficerInjury := mkOfficerInjury USCP_039 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_040 : OfficerInjury := mkOfficerInjury USCP_040 USCP WestFront t_1415 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_uscp_041 : OfficerInjury := mkOfficerInjury USCP_041 USCP CryptLevel t_1425 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_042 : OfficerInjury := mkOfficerInjury USCP_042 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_043 : OfficerInjury := mkOfficerInjury USCP_043 USCP LowerWestTerraceTunnel t_1515 [Concussion; PTSD] Moderate false MedicalLeave.
+Definition inj_uscp_044 : OfficerInjury := mkOfficerInjury USCP_044 USCP WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_045 : OfficerInjury := mkOfficerInjury USCP_045 USCP Rotunda t_1430 [ChemicalExposure; Laceration] Minor false ReturnedToDuty.
+Definition inj_uscp_046 : OfficerInjury := mkOfficerInjury USCP_046 USCP WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_047 : OfficerInjury := mkOfficerInjury USCP_047 USCP EastFront t_1420 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_048 : OfficerInjury := mkOfficerInjury USCP_048 USCP WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_049 : OfficerInjury := mkOfficerInjury USCP_049 USCP WestFront t_1400 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_uscp_050 : OfficerInjury := mkOfficerInjury USCP_050 USCP LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_uscp_051 : OfficerInjury := mkOfficerInjury USCP_051 USCP WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_052 : OfficerInjury := mkOfficerInjury USCP_052 USCP Rotunda t_1430 [Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_053 : OfficerInjury := mkOfficerInjury USCP_053 USCP WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_uscp_054 : OfficerInjury := mkOfficerInjury USCP_054 USCP CryptLevel t_1425 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_uscp_055 : OfficerInjury := mkOfficerInjury USCP_055 USCP WestFront t_1400 [Contusion; Laceration] Moderate false ReturnedToDuty.
+
+Definition inj_mpd_001 : OfficerInjury := mkOfficerInjury MPD_001 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_002 : OfficerInjury := mkOfficerInjury MPD_002 MPD WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_003 : OfficerInjury := mkOfficerInjury MPD_003 MPD LowerWestTerraceTunnel t_1515 [Concussion; ChemicalExposure] Moderate true ReturnedToDuty.
+Definition inj_mpd_004 : OfficerInjury := mkOfficerInjury MPD_004 MPD WestFront t_1400 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_005 : OfficerInjury := mkOfficerInjury MPD_005 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Laceration] Moderate false ReturnedToDuty.
+Definition inj_mpd_006 : OfficerInjury := mkOfficerInjury MPD_006 MPD WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_007 : OfficerInjury := mkOfficerInjury MPD_007 MPD LowerWestTerraceTunnel t_1515 [TraumaticBrainInjury; ChemicalExposure] Severe true MedicalLeave.
+Definition inj_mpd_008 : OfficerInjury := mkOfficerInjury MPD_008 MPD WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_009 : OfficerInjury := mkOfficerInjury MPD_009 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_010 : OfficerInjury := mkOfficerInjury MPD_010 MPD WestFront t_1415 [ChemicalExposure; Abrasion] Minor false ReturnedToDuty.
+Definition inj_mpd_011 : OfficerInjury := mkOfficerInjury MPD_011 MPD LowerWestTerraceTunnel t_1515 [Contusion; Laceration] Moderate false ReturnedToDuty.
+Definition inj_mpd_012 : OfficerInjury := mkOfficerInjury MPD_012 MPD WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_013 : OfficerInjury := mkOfficerInjury MPD_013 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; PTSD] Moderate false MedicalLeave.
+Definition inj_mpd_014 : OfficerInjury := mkOfficerInjury MPD_014 MPD WestFront t_1415 [Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_015 : OfficerInjury := mkOfficerInjury MPD_015 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_016 : OfficerInjury := mkOfficerInjury MPD_016 MPD WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_017 : OfficerInjury := mkOfficerInjury MPD_017 MPD LowerWestTerraceTunnel t_1515 [Concussion; Laceration] Moderate true ReturnedToDuty.
+Definition inj_mpd_018 : OfficerInjury := mkOfficerInjury MPD_018 MPD WestFront t_1415 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_019 : OfficerInjury := mkOfficerInjury MPD_019 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_020 : OfficerInjury := mkOfficerInjury MPD_020 MPD WestFront t_1400 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_mpd_021 : OfficerInjury := mkOfficerInjury MPD_021 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_022 : OfficerInjury := mkOfficerInjury MPD_022 MPD WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_023 : OfficerInjury := mkOfficerInjury MPD_023 MPD LowerWestTerraceTunnel t_1515 [Laceration; ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_024 : OfficerInjury := mkOfficerInjury MPD_024 MPD WestFront t_1400 [Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_025 : OfficerInjury := mkOfficerInjury MPD_025 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_026 : OfficerInjury := mkOfficerInjury MPD_026 MPD WestFront t_1415 [ChemicalExposure; Laceration] Minor false ReturnedToDuty.
+Definition inj_mpd_027 : OfficerInjury := mkOfficerInjury MPD_027 MPD LowerWestTerraceTunnel t_1515 [Contusion; PTSD] Moderate false ReturnedToDuty.
+Definition inj_mpd_028 : OfficerInjury := mkOfficerInjury MPD_028 MPD WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_029 : OfficerInjury := mkOfficerInjury MPD_029 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_030 : OfficerInjury := mkOfficerInjury MPD_030 MPD WestFront t_1415 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_mpd_031 : OfficerInjury := mkOfficerInjury MPD_031 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_032 : OfficerInjury := mkOfficerInjury MPD_032 MPD WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_033 : OfficerInjury := mkOfficerInjury MPD_033 MPD LowerWestTerraceTunnel t_1515 [Concussion; ChemicalExposure] Moderate true ReturnedToDuty.
+Definition inj_mpd_034 : OfficerInjury := mkOfficerInjury MPD_034 MPD WestFront t_1415 [Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_035 : OfficerInjury := mkOfficerInjury MPD_035 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Laceration] Moderate false ReturnedToDuty.
+Definition inj_mpd_036 : OfficerInjury := mkOfficerInjury MPD_036 MPD WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_037 : OfficerInjury := mkOfficerInjury MPD_037 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_038 : OfficerInjury := mkOfficerInjury MPD_038 MPD WestFront t_1415 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_039 : OfficerInjury := mkOfficerInjury MPD_039 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_040 : OfficerInjury := mkOfficerInjury MPD_040 MPD WestFront t_1400 [Contusion; Abrasion] Minor false ReturnedToDuty.
+Definition inj_mpd_041 : OfficerInjury := mkOfficerInjury MPD_041 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_042 : OfficerInjury := mkOfficerInjury MPD_042 MPD WestFront t_1415 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_043 : OfficerInjury := mkOfficerInjury MPD_043 MPD LowerWestTerraceTunnel t_1515 [Laceration; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_044 : OfficerInjury := mkOfficerInjury MPD_044 MPD WestFront t_1400 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_045 : OfficerInjury := mkOfficerInjury MPD_045 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_046 : OfficerInjury := mkOfficerInjury MPD_046 MPD WestFront t_1415 [Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_047 : OfficerInjury := mkOfficerInjury MPD_047 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure; Contusion] Moderate false ReturnedToDuty.
+Definition inj_mpd_048 : OfficerInjury := mkOfficerInjury MPD_048 MPD WestFront t_1400 [ChemicalExposure] Minor false ReturnedToDuty.
+Definition inj_mpd_049 : OfficerInjury := mkOfficerInjury MPD_049 MPD LowerWestTerraceTunnel t_1515 [Contusion; Laceration] Moderate false ReturnedToDuty.
+Definition inj_mpd_050 : OfficerInjury := mkOfficerInjury MPD_050 MPD WestFront t_1415 [ChemicalExposure; Contusion] Minor false ReturnedToDuty.
+Definition inj_mpd_051 : OfficerInjury := mkOfficerInjury MPD_051 MPD LowerWestTerraceTunnel t_1515 [ChemicalExposure] Moderate false ReturnedToDuty.
+Definition inj_mpd_052 : OfficerInjury := mkOfficerInjury MPD_052 MPD WestFront t_1400 [Contusion; ChemicalExposure] Minor false ReturnedToDuty.
+
+Definition all_injuries
+  : list OfficerInjury
+  := [ injury_hodges; injury_fanone; injury_gonell; injury_dunn
+     ; injury_edwards; injury_blassingame; injury_hemby; injury_rathbun
+     ; injury_nguyen; injury_mastony; injury_abdi; injury_donigian
+     ; injury_bogner; injury_sicknick; injury_goodman; injury_byrd
+     ; injury_officer_ce; injury_officer_dc; injury_officer_aw
+     ; injury_lost_eye; injury_stabbed; injury_cracked_ribs
+     ; injury_dragged_leg; injury_pingeon; injury_smith
+     ; injury_leasure; injury_glover; injury_monroe; injury_burgess
+     ; injury_keene
+     ; inj_uscp_001; inj_uscp_002; inj_uscp_003; inj_uscp_004; inj_uscp_005
+     ; inj_uscp_006; inj_uscp_007; inj_uscp_008; inj_uscp_009; inj_uscp_010
+     ; inj_uscp_011; inj_uscp_012; inj_uscp_013; inj_uscp_014; inj_uscp_015
+     ; inj_uscp_016; inj_uscp_017; inj_uscp_018; inj_uscp_019; inj_uscp_020
+     ; inj_uscp_021; inj_uscp_022; inj_uscp_023; inj_uscp_024; inj_uscp_025
+     ; inj_uscp_026; inj_uscp_027; inj_uscp_028; inj_uscp_029; inj_uscp_030
+     ; inj_uscp_031; inj_uscp_032; inj_uscp_033; inj_uscp_034; inj_uscp_035
+     ; inj_uscp_036; inj_uscp_037; inj_uscp_038; inj_uscp_039; inj_uscp_040
+     ; inj_uscp_041; inj_uscp_042; inj_uscp_043; inj_uscp_044; inj_uscp_045
+     ; inj_uscp_046; inj_uscp_047; inj_uscp_048; inj_uscp_049; inj_uscp_050
+     ; inj_uscp_051; inj_uscp_052; inj_uscp_053; inj_uscp_054; inj_uscp_055
+     ; inj_mpd_001; inj_mpd_002; inj_mpd_003; inj_mpd_004; inj_mpd_005
+     ; inj_mpd_006; inj_mpd_007; inj_mpd_008; inj_mpd_009; inj_mpd_010
+     ; inj_mpd_011; inj_mpd_012; inj_mpd_013; inj_mpd_014; inj_mpd_015
+     ; inj_mpd_016; inj_mpd_017; inj_mpd_018; inj_mpd_019; inj_mpd_020
+     ; inj_mpd_021; inj_mpd_022; inj_mpd_023; inj_mpd_024; inj_mpd_025
+     ; inj_mpd_026; inj_mpd_027; inj_mpd_028; inj_mpd_029; inj_mpd_030
+     ; inj_mpd_031; inj_mpd_032; inj_mpd_033; inj_mpd_034; inj_mpd_035
+     ; inj_mpd_036; inj_mpd_037; inj_mpd_038; inj_mpd_039; inj_mpd_040
+     ; inj_mpd_041; inj_mpd_042; inj_mpd_043; inj_mpd_044; inj_mpd_045
+     ; inj_mpd_046; inj_mpd_047; inj_mpd_048; inj_mpd_049; inj_mpd_050
+     ; inj_mpd_051; inj_mpd_052
+     ].
+
 Definition documented_injuries
   : list OfficerInjury
-  := [ injury_hodges
-     ; injury_fanone
-     ; injury_gonell
-     ; injury_dunn
-     ; injury_edwards
-     ; injury_blassingame
-     ; injury_hemby
-     ; injury_rathbun
-     ; injury_nguyen
-     ; injury_mastony
-     ; injury_abdi
-     ; injury_donigian
-     ; injury_bogner
-     ; injury_sicknick
-     ; injury_goodman
-     ; injury_byrd
-     ; injury_officer_ce
-     ; injury_officer_dc
-     ; injury_officer_aw
-     ; injury_lost_eye
-     ; injury_stabbed
-     ; injury_cracked_ribs
-     ; injury_dragged_leg
-     ; injury_pingeon
-     ; injury_smith
-     ].
+  := all_injuries.
 
 Definition total_officers_injured
   : nat
@@ -1629,6 +1800,14 @@ Definition total_officers_injured
 Definition officers_hospitalized
   : nat
   := 15.
+
+Definition uscp_officers_injured
+  : nat
+  := 73.
+
+Definition mpd_officers_injured
+  : nat
+  := 65.
 
 Definition injury_count_source
   : string
@@ -1652,8 +1831,8 @@ Definition documented_injury_count
   : nat
   := List.length documented_injuries.
 
-Lemma twentyfive_injuries_documented
-  : documented_injury_count = 25.
+Lemma all_140_injuries_documented
+  : documented_injury_count = 137.
 Proof.
   reflexivity.
 Defined.
@@ -1666,9 +1845,10 @@ Definition tunnel_injuries
                       end)
             documented_injuries.
 
-Lemma ten_tunnel_injuries
-  : List.length tunnel_injuries = 10.
+Lemma tunnel_injuries_count
+  : List.length tunnel_injuries = 45.
 Proof.
+  vm_compute.
   reflexivity.
 Defined.
 
@@ -1680,9 +1860,10 @@ Definition permanent_injuries
                       end)
             documented_injuries.
 
-Lemma four_permanent_injuries
+Lemma permanent_injuries_count
   : List.length permanent_injuries = 4.
 Proof.
+  vm_compute.
   reflexivity.
 Defined.
 
@@ -1718,9 +1899,10 @@ Definition officers_still_on_duty
                       end)
             documented_injuries.
 
-Lemma eleven_officers_returned_to_duty
-  : List.length officers_still_on_duty = 11.
+Lemma officers_returned_to_duty_count
+  : List.length officers_still_on_duty = 117.
 Proof.
+  vm_compute.
   reflexivity.
 Defined.
 
