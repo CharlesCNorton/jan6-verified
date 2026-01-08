@@ -175,7 +175,22 @@ Inductive LawEnforcementOfficer
    | JeffreySmith
    | GuntherHashida
    | KyleDeFretag
-   | WinstonPingeon.
+   | WinstonPingeon
+   | JamesBlasingame
+   | SidneyHemby
+   | NoahRathbun
+   | PhusomNguyen
+   | JasonMastony
+   | AbdulkadirAbdi
+   | GeorgeDonigian
+   | WilliamBogner
+   | OfficerCE
+   | OfficerDC
+   | OfficerAW
+   | OfficerLostEye
+   | OfficerStabbed
+   | OfficerCrackedRibs
+   | OfficerDraggedLeg.
 
 Inductive ElectedOfficialPerson
   : Type
@@ -1338,6 +1353,246 @@ Definition injury_edwards
        true
        ReturnedToDuty.
 
+Definition injury_blassingame
+  : OfficerInjury
+  := mkOfficerInjury
+       JamesBlasingame
+       USCP
+       Rotunda
+       t_1430
+       [TraumaticBrainInjury; Contusion; PTSD]
+       Severe
+       false
+       MedicalLeave.
+
+Definition injury_hemby
+  : OfficerInjury
+  := mkOfficerInjury
+       SidneyHemby
+       USCP
+       WestFront
+       t_1400
+       [Laceration; ChemicalExposure; CrushedSpinalDisc]
+       Severe
+       true
+       MedicalLeave.
+
+Definition injury_rathbun
+  : OfficerInjury
+  := mkOfficerInjury
+       NoahRathbun
+       MPD
+       WestFront
+       t_1415
+       [Contusion; Laceration]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_nguyen
+  : OfficerInjury
+  := mkOfficerInjury
+       PhusomNguyen
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [ChemicalExposure; PTSD]
+       Severe
+       true
+       MedicalLeave.
+
+Definition injury_mastony
+  : OfficerInjury
+  := mkOfficerInjury
+       JasonMastony
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [TraumaticBrainInjury; Laceration; Concussion]
+       Severe
+       true
+       MedicalLeave.
+
+Definition injury_abdi
+  : OfficerInjury
+  := mkOfficerInjury
+       AbdulkadirAbdi
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [ChemicalExposure; Contusion]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_donigian
+  : OfficerInjury
+  := mkOfficerInjury
+       GeorgeDonigian
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [ChemicalExposure; Contusion]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_bogner
+  : OfficerInjury
+  := mkOfficerInjury
+       WilliamBogner
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [ChemicalExposure; Contusion]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_sicknick
+  : OfficerInjury
+  := mkOfficerInjury
+       BrianSicknick
+       USCP
+       WestFront
+       t_1500
+       [ChemicalExposure; Stroke]
+       Fatal
+       true
+       Deceased.
+
+Definition injury_goodman
+  : OfficerInjury
+  := mkOfficerInjury
+       EugeneGoodman
+       USCP
+       SenateWing
+       t_1414
+       [ChemicalExposure]
+       Minor
+       false
+       ReturnedToDuty.
+
+Definition injury_byrd
+  : OfficerInjury
+  := mkOfficerInjury
+       MichaelByrd
+       USCP
+       SpeakerLobby
+       t_1444
+       [PTSD]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_officer_ce
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerCE
+       USCP
+       WestFront
+       t_1400
+       [Contusion; Laceration]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_officer_dc
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerDC
+       USCP
+       WestFront
+       t_1400
+       [Contusion; Laceration]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_officer_aw
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerAW
+       MPD
+       LowerWestTerraceTunnel
+       t_1515
+       [ChemicalExposure; Contusion]
+       Moderate
+       false
+       ReturnedToDuty.
+
+Definition injury_lost_eye
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerLostEye
+       USCP
+       WestFront
+       t_1415
+       [Laceration]
+       Permanent
+       true
+       MedicalRetirement.
+
+Definition injury_stabbed
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerStabbed
+       USCP
+       WestFront
+       t_1415
+       [Laceration]
+       Severe
+       true
+       MedicalLeave.
+
+Definition injury_cracked_ribs
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerCrackedRibs
+       USCP
+       LowerWestTerraceTunnel
+       t_1515
+       [CrackedRib; CrushedSpinalDisc]
+       Permanent
+       true
+       MedicalRetirement.
+
+Definition injury_dragged_leg
+  : OfficerInjury
+  := mkOfficerInjury
+       OfficerDraggedLeg
+       MPD
+       WestFront
+       t_1415
+       [ShoulderInjury; Contusion]
+       Permanent
+       true
+       MedicalLeave.
+
+Definition injury_pingeon
+  : OfficerInjury
+  := mkOfficerInjury
+       WinstonPingeon
+       USCP
+       WestFront
+       t_1400
+       [ChemicalExposure; PTSD]
+       Moderate
+       false
+       Resigned.
+
+Definition injury_smith
+  : OfficerInjury
+  := mkOfficerInjury
+       JeffreySmith
+       MPD
+       WestFront
+       t_1415
+       [TraumaticBrainInjury; CrackedRib; PTSD]
+       Severe
+       true
+       Deceased.
+
 Definition documented_injuries
   : list OfficerInjury
   := [ injury_hodges
@@ -1345,6 +1600,26 @@ Definition documented_injuries
      ; injury_gonell
      ; injury_dunn
      ; injury_edwards
+     ; injury_blassingame
+     ; injury_hemby
+     ; injury_rathbun
+     ; injury_nguyen
+     ; injury_mastony
+     ; injury_abdi
+     ; injury_donigian
+     ; injury_bogner
+     ; injury_sicknick
+     ; injury_goodman
+     ; injury_byrd
+     ; injury_officer_ce
+     ; injury_officer_dc
+     ; injury_officer_aw
+     ; injury_lost_eye
+     ; injury_stabbed
+     ; injury_cracked_ribs
+     ; injury_dragged_leg
+     ; injury_pingeon
+     ; injury_smith
      ].
 
 Definition total_officers_injured
@@ -1369,6 +1644,82 @@ Lemma documented_injuries_at_tunnel
                       | _ => false
                       end)
             [injury_hodges; injury_fanone; injury_gonell] = true.
+Proof.
+  reflexivity.
+Defined.
+
+Definition documented_injury_count
+  : nat
+  := List.length documented_injuries.
+
+Lemma twentyfive_injuries_documented
+  : documented_injury_count = 25.
+Proof.
+  reflexivity.
+Defined.
+
+Definition tunnel_injuries
+  : list OfficerInjury
+  := filter (fun i => match inj_location i with
+                      | LowerWestTerraceTunnel => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Lemma ten_tunnel_injuries
+  : List.length tunnel_injuries = 10.
+Proof.
+  reflexivity.
+Defined.
+
+Definition permanent_injuries
+  : list OfficerInjury
+  := filter (fun i => match inj_severity i with
+                      | Permanent => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Lemma four_permanent_injuries
+  : List.length permanent_injuries = 4.
+Proof.
+  reflexivity.
+Defined.
+
+Definition fatal_injuries
+  : list OfficerInjury
+  := filter (fun i => match inj_severity i with
+                      | Fatal => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Definition officer_resignations
+  : list OfficerInjury
+  := filter (fun i => match inj_duty_status i with
+                      | Resigned => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Definition officer_medical_retirements
+  : list OfficerInjury
+  := filter (fun i => match inj_duty_status i with
+                      | MedicalRetirement => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Definition officers_still_on_duty
+  : list OfficerInjury
+  := filter (fun i => match inj_duty_status i with
+                      | ReturnedToDuty => true
+                      | _ => false
+                      end)
+            documented_injuries.
+
+Lemma eleven_officers_returned_to_duty
+  : List.length officers_still_on_duty = 11.
 Proof.
   reflexivity.
 Defined.

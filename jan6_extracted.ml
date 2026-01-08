@@ -159,6 +159,21 @@ type lawEnforcementOfficer =
 | GuntherHashida
 | KyleDeFretag
 | WinstonPingeon
+| JamesBlasingame
+| SidneyHemby
+| NoahRathbun
+| PhusomNguyen
+| JasonMastony
+| AbdulkadirAbdi
+| GeorgeDonigian
+| WilliamBogner
+| OfficerCE
+| OfficerDC
+| OfficerAW
+| OfficerLostEye
+| OfficerStabbed
+| OfficerCrackedRibs
+| OfficerDraggedLeg
 
 type electedOfficialPerson =
 | MikePence
